@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const { SECRET } = require('./config.js')
+const { User} = require('../models')
 
 const tokenExtractor = (req, res, next) => {
   const authorization = req.get('authorization')
@@ -15,4 +16,12 @@ const tokenExtractor = (req, res, next) => {
   next()
 }
 
-module.exports = { tokenExtractor }
+const isAdmin = async (req, res, next) => {
+  const user = await User.findByPk(req.decodedToken.id)
+  if (!user.admin) {
+    return res.status(401).json({ error: 'operation not permitted' })
+  }
+  next()
+}
+
+module.exports = { tokenExtractor, isAdmin }

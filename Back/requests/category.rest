@@ -1,0 +1,178 @@
+###
+//                            GET all Categories
+###
+// No Auth returns min
+###
+GET http://localhost:3001/api/category
+###
+// NotAdmin returns min
+###
+GET http://localhost:3001/api/categories
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDA4MzQzMX0.Fb-jbqQN17lbknKxwn77xm7UJ49L5Iei3PcbfsMfAbQ
+
+###
+// Admin returns full details
+###
+GET http://localhost:3001/api/categories
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDA4MzI3M30.yl_Lf_zEJklIHXBHKq5BuL14Nbg4MI5NjBJFJjK3mgE
+
+
+
+###
+//                            GET One Item
+###
+// No Auth returns min
+###
+GET http://localhost:3001/api/items/1
+###
+// NotAdmin returns min
+###
+GET http://localhost:3001/api/items/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDA4MzQzMX0.Fb-jbqQN17lbknKxwn77xm7UJ49L5Iei3PcbfsMfAbQ
+
+###
+// Admin returns full details
+###
+GET http://localhost:3001/api/items/1
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDA4MzI3M30.yl_Lf_zEJklIHXBHKq5BuL14Nbg4MI5NjBJFJjK3mgE
+
+
+
+
+###
+###
+//                            Change Items
+###
+// Fail with no Auth
+###
+PUT http://localhost:3001/api/items/1
+Content-Type: application/json
+
+{
+    "name": "Test Item C",
+    "description": "Test Desc C",
+    "price": 500,
+    "cost": 200,
+    "highestPrice": 999,
+    "lowestPrice": 100,  
+    "stock": 1,
+    "image": "www.picLocation.com/C"
+}
+###
+// Admin Pass
+###
+PUT http://localhost:3001/api/items/1
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDA4MzI3M30.yl_Lf_zEJklIHXBHKq5BuL14Nbg4MI5NjBJFJjK3mgE
+
+{
+    "name": "Test Item A",
+    "description": "Test Desc A",
+    "price": 500,
+    "cost": 200,
+    "highestPrice": 999,
+    "lowestPrice": 100,  
+    "stock": 1,
+    "image": "www.picLocation.com/A"
+}
+###
+// NotAdmin should fail
+###
+PUT http://localhost:3001/api/items/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDA4MzQzMX0.Fb-jbqQN17lbknKxwn77xm7UJ49L5Iei3PcbfsMfAbQ
+
+{
+    "name": "Test Item C",
+    "description": "Test Desc C",
+    "price": 500,
+    "cost": 200,
+    "highestPrice": 999,
+    "lowestPrice": 100,  
+    "stock": 1,
+    "image": "www.picLocation.com/C"
+}
+
+
+###
+//                                NEW Items
+###
+###
+// No Auth should fail
+###
+Post http://localhost:3001/api/items
+Content-Type: application/json
+
+{
+    "name": "Test Item C",
+    "description": "Test Desc C",
+    "price": 500,
+    "cost": 200,
+    "highestPrice": 999,
+    "lowestPrice": 100,  
+    "stock": 1,
+    "image": "www.picLocation.com/C"
+}
+###
+// NotAdmin should fail
+###
+Post http://localhost:3001/api/items
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDA4MzQzMX0.Fb-jbqQN17lbknKxwn77xm7UJ49L5Iei3PcbfsMfAbQ
+
+{
+    "name": "Test Item C",
+    "description": "Test Desc C",
+    "price": 500,
+    "cost": 200,
+    "highestPrice": 999,
+    "lowestPrice": 100,  
+    "stock": 1,
+    "image": "www.picLocation.com/C"
+}
+###
+// Admin Should pass
+###
+Post http://localhost:3001/api/items
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDA4MzI3M30.yl_Lf_zEJklIHXBHKq5BuL14Nbg4MI5NjBJFJjK3mgE
+
+{
+    "name": "Test Item D",
+    "description": "Test Desc D",
+    "price": 500,
+    "cost": 200,
+    "highestPrice": 999,
+    "lowestPrice": 100,  
+    "stock": 1,
+    "image": "www.picLocation.com/D"
+}
+###
+
+
+###
+//                             Deleting Item
+###
+###
+//No Auth should fail
+###
+DELETE  http://localhost:3001/api/items/3
+Content-Type: application/json
+###
+//Random User should Fail
+###
+DELETE  http://localhost:3001/api/items/3
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDA4MzQzMX0.Fb-jbqQN17lbknKxwn77xm7UJ49L5Iei3PcbfsMfAbQ
+###
+//Admin should delete
+###
+DELETE  http://localhost:3001/api/items/3
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDA4MzI3M30.yl_Lf_zEJklIHXBHKq5BuL14Nbg4MI5NjBJFJjK3mgE
+
+
+
+
+
+

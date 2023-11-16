@@ -10,19 +10,19 @@ Category.init({
     primaryKey: true,
     autoIncrement: true
   },
-  name: {
+  categoryName: {
     type: DataTypes.STRING,
     unique: true,
     allowNull: false
   },
-  description: {
+  categoryDescription: {
     type: DataTypes.STRING,
     allowNull: false
   },
   itemId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: { model: 'items', key: 'item_id' },
+    references: { model: 'items', key: 'item_id' }
   }
 }, {
   sequelize,

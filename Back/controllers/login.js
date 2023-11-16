@@ -13,8 +13,7 @@ router.post('/', async (request, response) => {
       username: body.username
     }
   })
-  
-  console.log(user)
+
   const passwordCorrect = user === null
     ? false
     : await bcrypt.compare(body.password, user.passwordHash)
@@ -40,7 +39,7 @@ router.post('/', async (request, response) => {
 
   response
     .status(200)
-    .send({ token, username: user.username, name: user.name })
+    .send({ token, username: user.username, name: user.name, admin: user.admin })
 })
 
 module.exports = router 

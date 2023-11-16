@@ -1,0 +1,156 @@
+
+###
+//                                  Get Address
+###
+###
+//Get with No Auth
+###
+GET http://localhost:3001/api/address
+###
+//Get with Admin Auth
+###
+GET http://localhost:3001/api/address
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDA4NjMyOX0.TZsDokfSBDhMF7ZMdI4mn6VaJi4i539nlXCPKc-yuhA
+###
+//Get with Standard Auth
+###
+GET http://localhost:3001/api/address
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDA4MzQzMX0.Fb-jbqQN17lbknKxwn77xm7UJ49L5Iei3PcbfsMfAbQ
+###
+
+###
+//                                  Creating Addresses
+###
+###
+//Post with No Auth
+###
+Post http://localhost:3001/api/address
+Content-Type: application/json
+ 
+{
+    "addressType": "shipping",
+    "street": "1234 my house", 
+    "city": "Las Vegas",
+    "state": "NV", 
+    "zipcode": "891087",
+    "country": "USA"
+}
+###
+//Post with Admin Auth
+###
+Post http://localhost:3001/api/address
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDA4MzI3M30.yl_Lf_zEJklIHXBHKq5BuL14Nbg4MI5NjBJFJjK3mgE
+
+{
+    "addressType": "shipping",
+    "street": "1234 my house", 
+    "city": "Las Vegas",
+    "state": "NV", 
+    "zipcode": "891087",
+    "country": "USA"
+}
+###
+//Post with Standard Auth
+###
+Post http://localhost:3001/api/address
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDA4MzQzMX0.Fb-jbqQN17lbknKxwn77xm7UJ49L5Iei3PcbfsMfAbQ
+
+{
+    "addressType": "shipping",
+    "street": "1234 my house", 
+    "city": "Las Vegas",
+    "state": "NV", 
+    "zipcode": "891087",
+    "country": "USA"
+}
+
+###
+//                                  Changing Addresses
+###
+###
+// Fail with no Auth
+###
+PUT http://localhost:3001/api/address/1
+Content-Type: application/json
+
+{
+    "addressType": "shipping",
+    "street": "1234 my house", 
+    "city": "Las Vegas",
+    "state": "NV", 
+    "zipcode": "891087",
+    "country": "USA"
+}
+###
+// Admin Pass
+###
+PUT http://localhost:3001/api/address/1
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDA4NjMyOX0.TZsDokfSBDhMF7ZMdI4mn6VaJi4i539nlXCPKc-yuhA
+
+{
+    "addressType": "shipping",
+    "street": "1234 my house", 
+    "city": "Las Vegas",
+    "state": "NV", 
+    "zipcode": "891087",
+    "country": "USA"
+}
+###
+// NotAdmin
+###
+PUT http://localhost:3001/api/address/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDA4MzQzMX0.Fb-jbqQN17lbknKxwn77xm7UJ49L5Iei3PcbfsMfAbQ
+
+{
+    "addressType": "shipping",
+    "street": "1234 my house", 
+    "city": "Las Vegas",
+    "state": "NV", 
+    "zipcode": "891087",
+    "country": "USA"
+}
+###
+// Test
+###
+PUT http://localhost:3001/api/address/1
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3QiLCJpZCI6OSwiaWF0IjoxNzAwMDIyNTQ0fQ.Hznpy8BJ3A8-w3BaQfXm__fLY6ozdKlmsvUaNEW3yP8
+
+{
+    "addressType": "shipping",
+    "street": "1234 my house", 
+    "city": "Las Vegas",
+    "state": "NV", 
+    "zipcode": "891087",
+    "country": "USA"
+}
+
+
+
+###
+//                             Deleting Addresses
+###
+###
+//  Test
+###
+DELETE  http://localhost:3001/api/address/1
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3QiLCJpZCI6OSwiaWF0IjoxNzAwMDIyNTQ0fQ.Hznpy8BJ3A8-w3BaQfXm__fLY6ozdKlmsvUaNEW3yP8
+
+###
+// NotAdmin
+###
+DELETE  http://localhost:3001/api/address/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDA4MzQzMX0.Fb-jbqQN17lbknKxwn77xm7UJ49L5Iei3PcbfsMfAbQ
+
+###
+//Admin
+###
+DELETE  http://localhost:3001/api/address/3
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDA4MzI3M30.yl_Lf_zEJklIHXBHKq5BuL14Nbg4MI5NjBJFJjK3mgE

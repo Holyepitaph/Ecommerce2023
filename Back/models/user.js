@@ -1,4 +1,4 @@
-const { Model, DataTypes } = require('sequelize')
+const { Model, DataTypes, NOW } = require('sequelize')
 
 const { sequelize } = require('../util/db')
 
@@ -25,6 +25,16 @@ User.init({
   },
   passwordHash:{
     type: DataTypes.STRING
+  },
+  email:{
+    type: DataTypes.STRING
+  },
+  phone:{
+    type: DataTypes.STRING
+  },
+  created:{
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
   }
 }, {
   sequelize,

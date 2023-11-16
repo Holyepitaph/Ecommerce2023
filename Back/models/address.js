@@ -4,6 +4,8 @@ const { sequelize } = require('../util/db')
 
 class Address extends Model {}
 
+//addressType to be shipping or billing
+
 Address.init({
   addressId: {
     type: DataTypes.INTEGER,

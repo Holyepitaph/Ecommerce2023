@@ -2,12 +2,23 @@ const bcrypt = require('bcrypt')
 const router = require('express').Router()
 
 const {User} = require('../models')
+const { tokenExtractor, isAdmin } = require('../util/middleware')
 
-router.get('/',async (req, res) =>{
-    const user = await User.findAll({})
 
-    res.json(user)
+
+//For testing
+router.get('/', async (req, res) =>{
+  const user = await User.findAll({})
+
+  res.json(user)
 })
+
+//**Production for admin only with token check**
+// router.get('/',tokenExtractor, isAdmin, async (req, res) =>{
+//     const user = await User.findAll({})
+
+//     res.json(user)
+// })
 
 router.post('/', async (req, res) =>{
     try {
@@ -25,6 +36,57 @@ router.post('/', async (req, res) =>{
       } catch(error) {
         return res.status(400).json({ error })
       }   
+})
+
+//If admin Changes username admin status 
+//If user Changes email / Phone / Pass
+router.put('/:username', tokenExtractor, async (req, res) => {
+  const user = await User.findOne({ 
+    where: { 
+      username: req.params.username
+    }
+  })
+  const adminCheck = await User.findByPk(req.decodedToken.id)
+  if (user) {
+    if (!adminCheck.admin) {
+      if(req.decodedToken.id == user.id){
+        user.email = req.body.email ? req.body.email : user.email
+        user.phone = req.body.phone ? req.body.phone : user.phone
+        if(req.body.password){
+          const saltRounds = 10
+          const passwordHash = await bcrypt.hash(req.body.password, saltRounds)
+          user.passwordHash = passwordHash
+        }
+        await user.save()
+        res.json(user)
+      } else{
+        return res.status(401).json({ error: 'operation not permitted' })
+      }
+    } else if( adminCheck.admin){
+      user.admin = req.body.admin
+      await user.save()
+      res.json(user)
+    }
+
+  } else {
+    res.status(404).end()
+  }
+})
+
+//Deletes if user is an admin or is the same user as being deleted
+router.delete('/:username', tokenExtractor, async (req, res) => {
+const user = await User.findByPk(req.decodedToken.id)
+if (req.params.username.toLowerCase() == user.username.toLowerCase() || user.admin) {
+    const byebye = await User.findOne({ 
+      where: { 
+        username: req.params.username
+      }
+    })
+    await byebye.destroy()
+    return res.status(204).end()
+  } else{
+    return res.status(401).json({ error: 'operation not permitted' })
+  }
 })
 
 module.exports = router
