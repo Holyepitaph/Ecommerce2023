@@ -5,7 +5,7 @@ const { sequelize } = require('../util/db')
 class Item extends Model {}
 
 Item.init({
-    itemId: {
+  id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
@@ -42,7 +42,7 @@ Item.init({
     defaultValue: 0
   },
   image:{
-    type: DataTypes.STRING,
+    type: DataTypes.STRING
   }
 }, {
   sequelize,

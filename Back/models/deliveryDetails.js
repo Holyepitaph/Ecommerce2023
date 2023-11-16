@@ -8,12 +8,12 @@ DeliveryDetails.init({
   addressId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: { model: 'addresses', key: 'address_id' },
+    references: { model: 'addresses', key: 'id' },
   },
   orderId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: { model: 'orders', key: 'order_id' },
+    references: { model: 'orders', key: 'id' },
   }
 }, {
   sequelize,

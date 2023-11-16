@@ -51,14 +51,14 @@ router.get('/:itemId', async (req, res) =>{
         if(user.admin){
           const item = await Item.findOne({           
              where: { 
-            item_id: req.params.itemId
+              id: req.params.itemId
           }})
           return res.json(item)
         }
         if (!user.admin) {
           const item = await Item.findOne({            
             where: { 
-            item_id: req.params.itemId
+              id: req.params.itemId
           },
               attributes:{ exclude:['cost', 'highestPrice', 'lowestPrice']}
             })
@@ -67,7 +67,7 @@ router.get('/:itemId', async (req, res) =>{
       } catch{
           const item = await Item.findOne({
             where: { 
-                item_id: req.params.itemId
+              id: req.params.itemId
               },
               attributes:{ exclude:['cost', 'highestPrice', 'lowestPrice']}
             })
@@ -76,7 +76,7 @@ router.get('/:itemId', async (req, res) =>{
     } else {
       const item = await Item.findOne({
         where: { 
-            item_id: req.params.itemId
+          id: req.params.itemId
           },
           attributes:{ exclude:['cost', 'highestPrice', 'lowestPrice']}
         })
@@ -101,7 +101,7 @@ router.put('/:itemId', tokenExtractor,isAdmin, async (req, res) => {
     try{
         const item = await Item.findOne({ 
             where: { 
-              item_id: req.params.itemId
+              id: req.params.itemId
             }
           })
         item.name = req.body.name ? req.body.name : item.name

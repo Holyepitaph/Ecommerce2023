@@ -35,7 +35,7 @@ router.put('/:address_id', tokenExtractor, async (req, res) => {
   try{
     const address = await Address.findOne({ 
       where: { 
-        address_id: req.params.address_id
+        id: req.params.address_id
       }
     })
     const adminCheck = await User.findByPk(req.decodedToken.id)
@@ -65,7 +65,7 @@ router.delete('/:address_id', tokenExtractor, async (req, res) => {
     try {
       const address = await Address.findOne({ 
         where: { 
-          address_id: req.params.address_id
+          id: req.params.address_id
         }
       })
       const user = await User.findByPk(req.decodedToken.id)

@@ -17,8 +17,12 @@ const tokenExtractor = (req, res, next) => {
 }
 
 const isAdmin = async (req, res, next) => {
-  const user = await User.findByPk(req.decodedToken.id)
-  if (!user.admin) {
+  try{
+    const user = await User.findByPk(req.decodedToken.id)
+    if (!user.admin ) {
+      return res.status(401).json({ error: 'operation not permitted' })
+    }
+  }catch(error){
     return res.status(401).json({ error: 'operation not permitted' })
   }
   next()

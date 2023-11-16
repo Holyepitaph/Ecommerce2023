@@ -5,7 +5,7 @@ const { sequelize } = require('../util/db')
 class CartItem extends Model {}
 
 CartItem.init({
-  cartItemId: {
+  id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
@@ -18,7 +18,7 @@ CartItem.init({
   cartId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: { model: 'carts', key: 'cart_id' },
+    references: { model: 'carts', key: 'id' },
   }
 }, {
   sequelize,

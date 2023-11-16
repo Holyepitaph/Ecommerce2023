@@ -5,7 +5,7 @@ const { sequelize } = require('../util/db')
 class Review extends Model {}
 
 Review.init({
-    reviewId: {
+  id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
@@ -21,12 +21,12 @@ Review.init({
   itemId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: { model: 'items', key: 'item_id' },
+    references: { model: 'items', key: 'id' }
   },
   userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: { model: 'users', key: 'id' },
+    references: { model: 'users', key: 'id' }
   }
 }, {
   sequelize,

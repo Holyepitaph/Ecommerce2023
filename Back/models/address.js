@@ -7,7 +7,7 @@ class Address extends Model {}
 //addressType to be shipping or billing
 
 Address.init({
-  addressId: {
+  id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
@@ -39,7 +39,7 @@ Address.init({
   userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: { model: 'users', key: 'id' },
+    references: { model: 'users', key: 'id' }
   }
 }, {
   sequelize,

@@ -5,7 +5,7 @@ const { sequelize } = require('../util/db')
 class Category extends Model {}
 
 Category.init({
-    categoryId: {
+  id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
@@ -22,7 +22,7 @@ Category.init({
   itemId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: { model: 'items', key: 'item_id' }
+    references: { model: 'items', key: 'id' }
   }
 }, {
   sequelize,

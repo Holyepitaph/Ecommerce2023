@@ -8,13 +8,13 @@ GET http://localhost:3001/api/items
 // NotAdmin returns min
 ###
 GET http://localhost:3001/api/items
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDA4MzQzMX0.Fb-jbqQN17lbknKxwn77xm7UJ49L5Iei3PcbfsMfAbQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDEwNzIxN30.Lj1TJUtOgcpwGv8IilvvYaFAEUeEWLhKnMNuQNex0Qo
 
 ###
 // Admin returns full details
 ###
 GET http://localhost:3001/api/items
-Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDA4MzI3M30.yl_Lf_zEJklIHXBHKq5BuL14Nbg4MI5NjBJFJjK3mgE
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDEwNzIwOH0.snNtCB_yW-bmPjwdBpLVtoWTCx6V75ifkbW85gP2gL8
 
 
 
@@ -135,7 +135,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vd
 ###
 Post http://localhost:3001/api/items
 Content-Type: application/json
-Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDA4MzI3M30.yl_Lf_zEJklIHXBHKq5BuL14Nbg4MI5NjBJFJjK3mgE
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDEwOTY1Nn0.qGxTUcyswhnYXxpV5plp7vhf4Ic2dctHO8ntG6F88jY
 
 {
     "name": "Test Item D",
@@ -167,7 +167,7 @@ Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5v
 ###
 //Admin should delete
 ###
-DELETE  http://localhost:3001/api/items/3
+DELETE  http://localhost:3001/api/items/1
 Content-Type: application/json
 Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDA4MzI3M30.yl_Lf_zEJklIHXBHKq5BuL14Nbg4MI5NjBJFJjK3mgE
 

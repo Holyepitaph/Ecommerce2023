@@ -1,21 +1,34 @@
-// const User = require('./user')
-// const Address = require('./address')
-// const Cart = require('./cart')
+const User = require('./user')
+const Address = require('./address')
+const Item = require('./item')
 
-// const Category = require('./category')
-// const Item = require('./item')
-// const Order = require('./order')
-// const OrderItem = require('./orderItem')
-// const Review = require('./review')
-// const CartItem = require('./cartItems')
-// const DeliveryDetails = require('./deliveryDetails')
+const Review = require('./review')
+const Category = require('./category')
+
+const Cart = require('./cart')
+const Order = require('./order')
+
+const OrderItem = require('./orderItem')
+const CartItem = require('./cartItems')
+
+const DeliveryDetails = require('./deliveryDetails')
+
+const { sequelize } = require('../util/db')
+
 
 // User.sync()
 // Address.sync()
+
+User.hasMany(Address)
+Address.belongsTo(User)
+
 // Item.sync()
 
 // Review.sync()
 // Category.sync()
+
+Item.hasMany(Category)
+Category.belongsTo(Item)
 
 // Cart.sync()
 // Order.sync()
@@ -25,43 +38,44 @@
 
 // DeliveryDetails.sync()
 
-// User.hasOne(Cart)
-// Cart.belongsTo(User)
+User.hasOne(Cart)
+Cart.belongsTo(User)
 
-// User.hasMany(Address)
-// Address.belongsTo(User)
 
-// User.hasMany(Order)
-// Order.belongsTo(User)
 
-// Item.hasOne(CartItem)
-// CartItem.belongsTo(Item)
+User.hasMany(Order)
+Order.belongsTo(User)
 
-// Item.hasOne(OrderItem)
-// OrderItem.belongsTo(Item)
+Item.hasOne(CartItem)
+CartItem.belongsTo(Item)
 
-// Item.hasMany(Category, {targetKey:'itemId',foreignKey:'itemId'})
-// Category.belongsTo(Item)
+Item.hasOne(OrderItem)
+OrderItem.belongsTo(Item)
 
-// Item.hasMany(Review)
-// Review.belongsTo(Item)
+User.hasMany(Review)
+Review.belongsTo(User)
 
-// Cart.hasMany(CartItem)
-// CartItem.belongsTo(Cart)
+Item.hasMany(Review)
+Review.belongsTo(Item)
 
-// Address.belongsToMany(Order,{through: DeliveryDetails})
-// Order.belongsToMany(Address,{through: DeliveryDetails})
+Cart.hasMany(CartItem)
+CartItem.belongsTo(Cart)
 
+Address.belongsToMany(Order,{through: DeliveryDetails})
+Order.belongsToMany(Address,{through: DeliveryDetails})
+
+
+sequelize.sync()
 //Probably need to figure out to many or whatever
 module.exports = {
-    // User,
-    // Address,
-    // Item,
-    // Category,
-    // Review,
-    // Cart,
-    // Order,
-    // CartItem,
-    // OrderItem,
-    // DeliveryDetails
+    User,
+    Address,
+    Item,
+    Category,
+    Review,
+    Cart,
+    Order,
+    CartItem,
+    OrderItem,
+    DeliveryDetails
 }
