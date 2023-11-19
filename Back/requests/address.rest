@@ -18,6 +18,10 @@ GET http://localhost:3001/api/address
 Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDEwNzIxN30.Lj1TJUtOgcpwGv8IilvvYaFAEUeEWLhKnMNuQNex0Qo
 ###
 
+
+
+
+
 ###
 //                                  Creating Addresses
 ###
@@ -58,13 +62,17 @@ Content-Type: application/json
 Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDA4MzQzMX0.Fb-jbqQN17lbknKxwn77xm7UJ49L5Iei3PcbfsMfAbQ
 
 {
-    "addressType": "shipping",
+    "addressType": "billing",
     "street": "1234 my house", 
     "city": "Las Vegas",
     "state": "NV", 
     "zipcode": "891087",
     "country": "USA"
 }
+
+
+
+
 
 ###
 //                                  Changing Addresses
@@ -144,13 +152,13 @@ Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRl
 ###
 // NotAdmin
 ###
-DELETE  http://localhost:3001/api/address/1
+DELETE  http://localhost:3001/api/address/3
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDA4MzQzMX0.Fb-jbqQN17lbknKxwn77xm7UJ49L5Iei3PcbfsMfAbQ
 
 ###
 //Admin
 ###
-DELETE  http://localhost:3001/api/address/3
+DELETE  http://localhost:3001/api/address/1
 Content-Type: application/json
 Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDA4MzI3M30.yl_Lf_zEJklIHXBHKq5BuL14Nbg4MI5NjBJFJjK3mgE

@@ -77,6 +77,19 @@ Content-Type: application/json
     "password": "secret"
 }
 ###
+###
+Post http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "username": "Teas",
+    "name": "Test",
+    "password": "secret"
+}
+###
+
+
+
 
 
 ###
@@ -113,19 +126,19 @@ Content-Type: application/json
 ###
 //Same User
 ###
-DELETE  http://localhost:3001/api/users/test
+DELETE  http://localhost:3001/api/users/TEAS
 Content-Type: application/json
 Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3QiLCJpZCI6OCwiaWF0IjoxNjk5OTM1MjE0fQ.0UNIenGoFkqXrEpOKXM9JrKmkocUMi3qhb6a4cPiLOs
 ###
 //Random User
 ###
-DELETE  http://localhost:3001/api/users/test
+DELETE  http://localhost:3001/api/users/TEAS
 Content-Type: application/json
 Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDEwNzIxN30.Lj1TJUtOgcpwGv8IilvvYaFAEUeEWLhKnMNuQNex0Qo
 ###
 //Admin
 ###
-DELETE  http://localhost:3001/api/users/test
+DELETE  http://localhost:3001/api/users/TEAS
 Content-Type: application/json
 Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDEwNzIwOH0.snNtCB_yW-bmPjwdBpLVtoWTCx6V75ifkbW85gP2gL8
 

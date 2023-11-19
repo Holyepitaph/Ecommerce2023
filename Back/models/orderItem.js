@@ -5,11 +5,6 @@ const { sequelize } = require('../util/db')
 class OrderItem extends Model {}
 
 OrderItem.init({
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
   quantity: {
     type: DataTypes.INTEGER,
     allowNull:false
@@ -18,15 +13,11 @@ OrderItem.init({
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  orderId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: { model: 'orders', key: 'id' },
+  orderId:{
+    type: DataTypes.INTEGER
   },
-  itemId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: { model: 'items', key: 'id' },
+  itemId:{
+    type:DataTypes.INTEGER
   }
 }, {
   sequelize,

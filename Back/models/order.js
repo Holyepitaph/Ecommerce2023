@@ -28,14 +28,7 @@ Order.init({
     defaultValue:0
   },
   userId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: { model: 'users', key: 'id' },
-  },
-  addressId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: { model: 'addresses', key: 'id' },
+    type: DataTypes.INTEGER
   }
 }, {
   sequelize,

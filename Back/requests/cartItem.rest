@@ -1,0 +1,115 @@
+
+###
+// Admin returns full details
+###
+GET http://localhost:3001/api/cartItem
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDEwNzIwOH0.snNtCB_yW-bmPjwdBpLVtoWTCx6V75ifkbW85gP2gL8
+
+
+###
+//                                NEW CartItem
+###
+###
+// No Auth should fail
+###
+Post http://localhost:3001/api/cartItem
+Content-Type: application/json
+
+{
+    "itemId": 1,
+    "quantity": 1
+}
+###
+// NotAdmin should fail
+###
+Post http://localhost:3001/api/cartItem
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDM1NDQxMX0.a7zAsEhH0PvozVCnezJUuAlLfqS26u5kx90TGocVolM
+
+{
+    "itemId": 5,
+    "quantity": 1
+}
+###
+// Admin Should pass
+###
+Post http://localhost:3001/api/cartItem
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDEwOTY1Nn0.qGxTUcyswhnYXxpV5plp7vhf4Ic2dctHO8ntG6F88jY
+
+{
+    "itemId": 6,
+    "cartId": 1,
+    "quantity": 5
+}
+###
+
+
+
+###
+###
+//                            Change CartItem
+###
+// Fail with no Auth
+###
+PUT http://localhost:3001/api/cartItem/1
+Content-Type: application/json
+
+{
+     "itemId": 1,
+    "quantity": 1
+}
+###
+// Admin Pass
+###
+PUT http://localhost:3001/api/cartItem/2
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDA5ODk2Mn0.tVvXFdacViNlwVtXDOKOycKFPcO_wdjmt15IA2MpJDw
+
+{
+    "userId": 2,
+    "quantity": 5
+}
+###
+// NotAdmin should fail
+###
+PUT http://localhost:3001/api/cartItem/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDA5OTAxM30.GK8CBJgRwmMQE4SdUY6VUsyR9OcC4g1L49Zck8YB7Yg
+
+{
+    "quantity": 10
+}
+
+
+
+
+###
+//                             Deleting CartItem
+###
+###
+//No Auth should fail
+###
+DELETE  http://localhost:3001/api/cartItem/6
+Content-Type: application/json
+###
+//Random User should Fail
+###
+DELETE  http://localhost:3001/api/cartItem/4
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDM1NDQxMX0.a7zAsEhH0PvozVCnezJUuAlLfqS26u5kx90TGocVolM
+
+###
+//Admin should delete
+###
+DELETE  http://localhost:3001/api/cartItem/5
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDA4MzI3M30.yl_Lf_zEJklIHXBHKq5BuL14Nbg4MI5NjBJFJjK3mgE
+
+{
+    "cartId": 4
+}
+
+
+
+

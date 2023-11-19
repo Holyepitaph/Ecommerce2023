@@ -6,7 +6,7 @@ const { tokenExtractor, isAdmin } = require('../util/middleware')
 
 ///Needs to be changed to Many to Many model
 
-//For testing
+//Retrieves all categories with linked items
 router.get('/', async (req, res) => {
   try{
     const category = await Category.findAll({ 
@@ -20,15 +20,38 @@ router.get('/', async (req, res) => {
   }
 })
 
-// router.post('/:item_id',tokenExtractor,isAdmin, async (req, res) => {
-//   try {
-//     const user  = await User.findByPk(req.decodedToken.id)
-//     const address = await Address.create({...req.body,userId: user.id})
-//     res.json(address)
-//   } catch(error) {
-//     return res.status(400).json({ error })
-//   }
-// })
+//Only needs to confirm admin status and create a category
+router.post('/',tokenExtractor,isAdmin, async (req, res) => {
+  try {
+    const category = await Category.create({categoryDescription: req.body.categoryDescription,categoryName:req.body.categoryName})
+    res.json(category)
+  } catch(error) {
+    return res.status(400).json({ error })
+  }
+})
 
+
+router.put('/:categoryId',tokenExtractor,isAdmin, async (req, res) => {
+  try {
+    const category = await Category.findByPk(req.params.categoryId)
+    category.categoryName = req.body.categoryName ? req.body.categoryName : category.categoryName
+    category.categoryDescription = req.body.categoryDescription ? req.body.categoryDescription : category.categoryDescription
+    await category.save()
+    res.json(category)
+  } catch(error) {
+    return res.status(400).json({ error })
+  }
+})
+
+//Deletes if user is an admin
+router.delete('/:categoryId', tokenExtractor,isAdmin, async (req, res) => {
+  const category = await Category.findByPk(req.params.categoryId)
+  if (category) {
+      await category.destroy()
+      return res.status(204).end()
+    } else{
+      return res.status(401).json({ error: 'Item not found' })
+    }
+  })
 
 module.exports = router

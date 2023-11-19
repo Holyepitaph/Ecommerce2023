@@ -1,0 +1,90 @@
+//Not Fixed
+###
+// Admin returns full details for Testing Only
+###
+GET http://localhost:3001/api/categoryItem
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDEwNzIwOH0.snNtCB_yW-bmPjwdBpLVtoWTCx6V75ifkbW85gP2gL8
+
+
+###
+//                                NEW CartItem
+###
+###
+// No Auth should fail
+###
+Post http://localhost:3001/api/categoryItem
+Content-Type: application/json
+
+{
+    "categoryId": 1,
+    "itemId": 1
+}
+###
+// NotAdmin should fail
+###
+Post http://localhost:3001/api/categoryItem
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDM1NDQxMX0.a7zAsEhH0PvozVCnezJUuAlLfqS26u5kx90TGocVolM
+
+{
+    "categoryId": 1,
+    "itemId": 1
+}
+###
+// Admin Should pass
+###
+Post http://localhost:3001/api/categoryItem
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDEwOTY1Nn0.qGxTUcyswhnYXxpV5plp7vhf4Ic2dctHO8ntG6F88jY
+
+{
+    "categoryId": 5,
+    "itemId": 4
+}
+###
+
+
+
+
+
+
+
+###
+//                             Deleting CartItem
+###
+###
+//No Auth should fail
+###
+DELETE  http://localhost:3001/api/categoryItem
+Content-Type: application/json
+
+{
+    "categoryId": 1,
+    "itemId": 1
+}
+###
+//Random User should Fail
+###
+DELETE  http://localhost:3001/api/categoryItem
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDM1NDQxMX0.a7zAsEhH0PvozVCnezJUuAlLfqS26u5kx90TGocVolM
+
+{
+    "categoryId": 1,
+    "itemId": 1
+}
+###
+//Admin should delete
+###
+DELETE  http://localhost:3001/api/categoryItem
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDA4MzI3M30.yl_Lf_zEJklIHXBHKq5BuL14Nbg4MI5NjBJFJjK3mgE
+
+{
+    "categoryId": 4,
+    "itemId": 5
+}
+
+
+
+

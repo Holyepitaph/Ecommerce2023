@@ -10,60 +10,38 @@ const Order = require('./order')
 
 const OrderItem = require('./orderItem')
 const CartItem = require('./cartItems')
+const CategoryItems = require('./categoryItems')
 
-const DeliveryDetails = require('./deliveryDetails')
+const AddressOrder = require('./addressOrder')
 
 const { sequelize } = require('../util/db')
-
-
-// User.sync()
-// Address.sync()
-
+// Not Tested
 User.hasMany(Address)
 Address.belongsTo(User)
-
-// Item.sync()
-
-// Review.sync()
-// Category.sync()
-
-Item.hasMany(Category)
-Category.belongsTo(Item)
-
-// Cart.sync()
-// Order.sync()
-
-// OrderItem.sync()
-// CartItem.sync()
-
-// DeliveryDetails.sync()
-
+// Not Tested
+Item.belongsToMany(Category,{through:CategoryItems})
+Category.belongsToMany(Item,{through:CategoryItems})
+// Not Tested
 User.hasOne(Cart)
 Cart.belongsTo(User)
-
-
-
+// Not Tested
 User.hasMany(Order)
 Order.belongsTo(User)
-
-Item.hasOne(CartItem)
-CartItem.belongsTo(Item)
-
-Item.hasOne(OrderItem)
-OrderItem.belongsTo(Item)
-
+// Not Tested
 User.hasMany(Review)
 Review.belongsTo(User)
-
+// Not Tested
 Item.hasMany(Review)
 Review.belongsTo(Item)
-
-Cart.hasMany(CartItem)
-CartItem.belongsTo(Cart)
-
-Address.belongsToMany(Order,{through: DeliveryDetails})
-Order.belongsToMany(Address,{through: DeliveryDetails})
-
+// Not Tested
+Address.belongsToMany(Order,{through: AddressOrder})
+Order.belongsToMany(Address,{through: AddressOrder})
+// Not Tested
+Item.belongsToMany(Order,{through:OrderItem})
+Order.belongsToMany(Item,{through:OrderItem})
+// Not Tested
+Item.belongsToMany(Cart,{through:CartItem})
+Cart.belongsToMany(Item,{through:CartItem})
 
 sequelize.sync()
 //Probably need to figure out to many or whatever
@@ -77,5 +55,5 @@ module.exports = {
     Order,
     CartItem,
     OrderItem,
-    DeliveryDetails
+    AddressOrder
 }

@@ -1,22 +1,26 @@
 const bcrypt = require('bcrypt')
 const router = require('express').Router()
 
-const {Order, User, Address} = require('../models')
+const {Order, User, Address, OrderItem, Item} = require('../models')
 const { tokenExtractor, isAdmin } = require('../util/middleware')
 
 //Get all users address if admin
 router.get('/',tokenExtractor, async (req, res) => {
-    const order = await Order.findAll({ 
-      include: [
-        {
-          model: Address
-        },
-        {
-          model: User
-        }
-      ]
-    })
-    res.json(order)
+    const user = await User.findByPk(req.decodedToken.id)
+    if(user.admin){
+      const order = await Order.findAll({ 
+        include: [User, Item, Address]
+      })
+      return res.json(order)
+    } else {
+      const order = await Order.findAll({
+        where:{userId:req.decodedToken.id}, 
+        include: [User, Item, Address]
+      })
+      return res.json(order)
+    }
+
+
   })
 
 //  Add address to user if user exists and only to matched token to user

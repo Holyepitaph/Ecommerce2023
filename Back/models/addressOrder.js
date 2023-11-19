@@ -2,23 +2,20 @@ const { Model, DataTypes } = require('sequelize')
 
 const { sequelize } = require('../util/db')
 
-class CartItem extends Model {}
+class AddressOrder extends Model {}
 
-CartItem.init({
-  cartId:{
-    type:DataTypes.INTEGER
-  },
-  itemId:{
+AddressOrder.init({
+  addressId: {
     type: DataTypes.INTEGER
   },
-  quantity:{
+  orderId: {
     type: DataTypes.INTEGER
   }
 }, {
   sequelize,
   underscored: true,
   timestamps: false,
-  modelName: 'cartItem'
+  modelName: 'addressOrder'
 })
 
-module.exports = CartItem
+module.exports = AddressOrder

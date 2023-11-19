@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt')
 const router = require('express').Router()
 
 const jwt = require('jsonwebtoken')
-const {Item, User} = require('../models')
+const {Item, User, Review, Category} = require('../models')
 const { tokenExtractor, isAdmin } = require('../util/middleware')
 const { SECRET } = require('../util/config.js')
 
@@ -17,25 +17,30 @@ router.get('/', async (req, res) =>{
       const user = await User.findByPk(req.decodedToken.id)
       console.log(user.admin)
       if(user.admin){
-        const item = await Item.findAll({})
+        const item = await Item.findAll({
+          include:[Review, Category]
+        })
         return res.json(item)
       }
       if (!user.admin) {
         const item = await Item.findAll({
-            attributes:{ exclude:['cost', 'highestPrice', 'lowestPrice']}
+            attributes:{ exclude:['cost', 'highestPrice', 'lowestPrice']},
+            include:[Review,Category]
           })
         return res.json(item)
       }
     } catch{
-        const item = await Item.findAll({
-            attributes:{ exclude:['cost', 'highestPrice', 'lowestPrice']}
-          })
+      const item = await Item.findAll({
+        attributes:{ exclude:['cost', 'highestPrice', 'lowestPrice']},
+        include:[Review,Category]
+      })
         return res.json(item)
     }
   } else {
     const item = await Item.findAll({
-        attributes:{ exclude:['cost', 'highestPrice', 'lowestPrice']}
-      })
+      attributes:{ exclude:['cost', 'highestPrice', 'lowestPrice']},
+      include:[Review,Category]
+    })
     return res.json(item)
   }
 })

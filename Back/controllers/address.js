@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt')
 const router = require('express').Router()
 
-const {Address, User} = require('../models')
+const {Address, User, Order} = require('../models')
 const { tokenExtractor, isAdmin } = require('../util/middleware')
 
 //Get all users address if admin
@@ -11,7 +11,7 @@ router.get('/',tokenExtractor, isAdmin, async (req, res) => {
         {
           model: User,
           attributes: { exclude: ['id','passwordHash', 'admin'] } 
-        }
+        }, Order
       ]
     })
     res.json(address)
