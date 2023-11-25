@@ -4,8 +4,6 @@ const router = require('express').Router()
 const {Category, Item} = require('../models')
 const { tokenExtractor, isAdmin } = require('../util/middleware')
 
-///Needs to be changed to Many to Many model
-
 //Retrieves all categories with linked items
 router.get('/', async (req, res) => {
   try{
@@ -30,7 +28,9 @@ router.post('/',tokenExtractor,isAdmin, async (req, res) => {
   }
 })
 
-
+// Changes single category with Params categoryId
+// categoryName/ categoryDescription
+//Admin Only
 router.put('/:categoryId',tokenExtractor,isAdmin, async (req, res) => {
   try {
     const category = await Category.findByPk(req.params.categoryId)
@@ -43,7 +43,7 @@ router.put('/:categoryId',tokenExtractor,isAdmin, async (req, res) => {
   }
 })
 
-//Deletes if user is an admin
+//Deletes Category if user is an admin
 router.delete('/:categoryId', tokenExtractor,isAdmin, async (req, res) => {
   const category = await Category.findByPk(req.params.categoryId)
   if (category) {

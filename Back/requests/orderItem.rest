@@ -25,12 +25,12 @@ Content-Type: application/json
 ###
 Post http://localhost:3001/api/orderItem
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDQyMzcyNX0.pNJ3ygHC_q7IBa5C-1c1p3xhD7hJSkPebg9B0xWxbpY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDgwNDMyOX0.pT2yrxcMrz_9s04q-DS2vFmVkJMNTIMaMg9X6DdVWvA
 
 {
     "quantity": 6,
-    "orderId": 1,
-    "itemId": 2
+    "orderId": 2,
+    "itemId": 4
 }
 ###
 // Admin Should pass
@@ -41,7 +41,7 @@ Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFk
 
 {
     "quantity": 6,
-    "orderId": 6,
+    "orderId": 1,
     "itemId": 1
 }
 ###

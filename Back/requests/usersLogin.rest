@@ -2,6 +2,8 @@
 //                            GET all users
 ###
 GET http://localhost:3001/api/users
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDEwNzIwOH0.snNtCB_yW-bmPjwdBpLVtoWTCx6V75ifkbW85gP2gL8
+
 
 ###
 ###
@@ -18,12 +20,15 @@ Content-Type: application/json
 ###
 // Admin Pass
 ###
-PUT http://localhost:3001/api/users/test
+PUT http://localhost:3001/api/users/Tasdfeas
 Content-Type: application/json
 Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDEwNzIwOH0.snNtCB_yW-bmPjwdBpLVtoWTCx6V75ifkbW85gP2gL8
 
 {
-  "admin": true
+  "admin": false,
+    "email": "test@testa.com",
+  "phone" :"15646874651",
+  "password": "secret"
 }
 ###
 // NotAdmin
@@ -82,7 +87,7 @@ Post http://localhost:3001/api/users
 Content-Type: application/json
 
 {
-    "username": "Teas",
+    "username": "Tasdfeas",
     "name": "Test",
     "password": "secret"
 }

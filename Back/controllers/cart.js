@@ -22,7 +22,8 @@ router.get('/',tokenExtractor, async (req, res) => {
 
   })
 
-//  Add address to user if user exists and only to matched token to user
+// Creates new cart matched to User if user does not
+// Have a cart
   router.post('/',tokenExtractor, async (req, res) => {
     try {
       const user  = await User.findByPk(req.decodedToken.id)

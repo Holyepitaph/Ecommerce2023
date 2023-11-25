@@ -1,29 +1,23 @@
 const bcrypt = require('bcrypt')
 const router = require('express').Router()
 
-const {User} = require('../models')
+const {User, Address, Order, Cart} = require('../models')
 const { tokenExtractor, isAdmin } = require('../util/middleware')
+const saltRounds = 11
 
+// **Production for admin only with token check**
+router.get('/',tokenExtractor, isAdmin, async (req, res) =>{
+    const user = await User.findAll({
+      include:[Address, Order, Cart]
+    })
 
-
-//For testing
-router.get('/', async (req, res) =>{
-  const user = await User.findAll({})
-
-  res.json(user)
+    res.json(user)
 })
 
-//**Production for admin only with token check**
-// router.get('/',tokenExtractor, isAdmin, async (req, res) =>{
-//     const user = await User.findAll({})
-
-//     res.json(user)
-// })
-
+// Creates new Users with password encrypt
 router.post('/', async (req, res) =>{
     try {
         const {username, name, password} = req.body
-        const saltRounds = 10
         const passwordHash = await bcrypt.hash(password, saltRounds)
         const newUser ={
           username,
@@ -53,7 +47,6 @@ router.put('/:username', tokenExtractor, async (req, res) => {
         user.email = req.body.email ? req.body.email : user.email
         user.phone = req.body.phone ? req.body.phone : user.phone
         if(req.body.password){
-          const saltRounds = 10
           const passwordHash = await bcrypt.hash(req.body.password, saltRounds)
           user.passwordHash = passwordHash
         }
@@ -64,6 +57,12 @@ router.put('/:username', tokenExtractor, async (req, res) => {
       }
     } else if( adminCheck.admin){
       user.admin = req.body.admin
+      user.email = req.body.email ? req.body.email : user.email
+      user.phone = req.body.phone ? req.body.phone : user.phone
+      if(req.body.password){
+        const passwordHash = await bcrypt.hash(req.body.password, saltRounds)
+        user.passwordHash = passwordHash
+      }
       await user.save()
       res.json(user)
     }

@@ -1,2 +1,9 @@
-# Ecommerce2023
- First Attempt at FullStack Solo Project 11/10/23
+
+npm create vite@latest
+
+npm install react-router-dom axios
+
+npm install --save-dev cypress
+-------------------------------
+transfer vite config
+------------------------------

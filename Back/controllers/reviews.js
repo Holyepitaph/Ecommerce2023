@@ -4,7 +4,7 @@ const router = require('express').Router()
 const {Review, Item, User} = require('../models')
 const { tokenExtractor, isAdmin } = require('../util/middleware')
 
-//Get all 
+//Get all with any credential
 router.get('/', async (req, res) => {
     const review = await Review.findAll({ 
       include: [Item, User]
@@ -13,6 +13,8 @@ router.get('/', async (req, res) => {
   })
 
 //  Add Review to user if user exists
+//  Item checked by param id and adds
+//  BODY.review/rating
   router.post('/:item_id',tokenExtractor, async (req, res) => {
     try {
       const user  = await User.findByPk(req.decodedToken.id)
@@ -56,7 +58,7 @@ router.get('/', async (req, res) => {
 //     }  
 // })
 
-//Delete with either admin or id matching address
+//Delete :review_id with admin status or matching UserId
 router.delete('/:review_id', tokenExtractor, async (req, res) => {
     try {
       const review = await Review.findOne({ 
@@ -65,7 +67,6 @@ router.delete('/:review_id', tokenExtractor, async (req, res) => {
         }
       })
       const user = await User.findByPk(req.decodedToken.id)
-      console.log(user)
       if (review.userId == user.id || user.admin) {
           await review.destroy()
           return res.status(204).end()

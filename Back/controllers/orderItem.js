@@ -8,8 +8,9 @@ const CategoryItems = require('../models/categoryItems')
 
 
 //  Creates new orderItem needs orderId,itemId,quantity
-//  this checks token agains order to confirm order is theirs
-  router.post('/',tokenExtractor, async (req, res) => {
+//  this checks token against order to confirm order is theirs
+///////Consider adding an admin forced change 
+router.post('/',tokenExtractor, async (req, res) => {
  try{
   const order = await Order.findByPk(req.body.orderId)
   const item = await Item.findByPk(req.body.itemId)
@@ -28,7 +29,7 @@ const CategoryItems = require('../models/categoryItems')
 
 //Deletes Item Cart Association
 //If admin requires ItemId/CartId
-//If User requires ItemId
+////////Consider changing to allow matched user to delete
 router.delete('/', tokenExtractor, isAdmin, async (req, res) => {
     try {
 

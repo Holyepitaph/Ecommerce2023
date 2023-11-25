@@ -9,6 +9,9 @@ const { SECRET } = require('../util/config.js')
 
 
 //Find All Items
+// Admin gets all with all info
+// Users and non users get all with missing info
+//////Consider changing for safety
 router.get('/', async (req, res) =>{
   const authorization = req.get('authorization')
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
@@ -45,7 +48,9 @@ router.get('/', async (req, res) =>{
   }
 })
 
-//Find Single Item
+//Find Single Item with :itemId
+//admin gets all info
+// everyone else gets minimum info
 router.get('/:itemId', async (req, res) =>{
     const authorization = req.get('authorization')
     if (authorization && authorization.toLowerCase().startsWith('bearer ')) {

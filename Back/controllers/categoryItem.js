@@ -7,7 +7,7 @@ const CategoryItems = require('../models/categoryItems')
 
 
 
-//  Adds new Cart Item MTM association needs itemId/quantity...cartId retrieved from token
+//  Adds new categoryItem with itemId,categoryId
   router.post('/',tokenExtractor,isAdmin, async (req, res) => {
  try{
   const category = await Category.findByPk(req.body.categoryId)
@@ -21,7 +21,7 @@ const CategoryItems = require('../models/categoryItems')
 
 
 
-//Deletes Item Cart Association
+//Deletes categoryItem Association
 //If admin requires ItemId/CartId
 //If User requires ItemId
 router.delete('/', tokenExtractor, isAdmin, async (req, res) => {

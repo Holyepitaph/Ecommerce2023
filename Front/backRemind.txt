@@ -1,0 +1,86 @@
+USES
+
+1=No Token required
+2=Token required
+3=Admin required
+
+Combos mean different info is provided per type
+for example
+23 = Tokens and Admins give different info but No Token is denied
+
+
+address(
+3    GET
+2    POST   *addressType, street, city, state, zipcode, country
+23    PUT/:address_id *addressType, street, city, state, zipcode, country
+23    DELETE/:address_id
+)
+
+addressOrder(
+3    GET
+2    POST
+3    DELETE  ADMIN  *addressId, orderId
+)
+
+orders(
+23    GET ADMIN ALL ELSE Partial
+2    POST  
+3    PUT/:orderId  *status
+3    DELETE/:orderId
+)
+
+orderItem(
+2    POST  *orderId, itemId, quantity
+3    DELETE  IF ADMIN * itemId, cartId 
+)
+
+items(
+123    GET
+123     GET/:itemId
+3    POST *name, description, price, cost, highestPrice, lowestPrice, stock, image
+3    PUT  *name, description, price, cost, highestPrice, lowestPrice, stock, image
+3    DELETE/:itemId
+)
+
+cartItem(
+2    POST *itemId, quantity
+23    PUT/:itemId  
+         ADMIN  *cartId, itemId, quantity
+          ELSE *itemId, quantity
+23    DELETE/:itemId      *cartId
+)
+
+cart(
+23    GET   
+2    POST
+23    DELETE/:userId
+)
+
+categoryItem(
+3    POST  *itemId, categoryId
+3    DELETE  *itemId, categoryId
+)
+
+category(
+123    GET
+3    POST  *categoryDescription, categoryName
+3    PUT/:categoryId  *categoryName, categoryDescription
+3    DELETE/:categoryId 
+)
+
+login(
+1    POST *username, password, 
+)
+
+reviews(
+1    GET
+2   POST /:item_id *review, rating
+23    DELETE /:review_id 
+)
+
+users(
+3    GET  Admin only
+1    POST  *username, name, password
+23    PUT     /:username *email, phone, password **IF ADMIN then admin
+23    DELETE  /:username
+)
