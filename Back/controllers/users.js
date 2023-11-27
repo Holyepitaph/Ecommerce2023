@@ -6,12 +6,20 @@ const { tokenExtractor, isAdmin } = require('../util/middleware')
 const saltRounds = 11
 
 // **Production for admin only with token check**
-router.get('/',tokenExtractor, isAdmin, async (req, res) =>{
-    const user = await User.findAll({
+router.get('/',tokenExtractor, async (req, res) =>{
+  const user = await User.findByPk(req.decodedToken.id,{
+    include:[Address,Order,Cart]
+  })  
+  if(user.admin){
+    const userInfo = await User.findAll({
       include:[Address, Order, Cart]
     })
 
-    res.json(user)
+    return res.json(userInfo)
+  } else{
+    return res.json(user)
+  }
+
 })
 
 // Creates new Users with password encrypt

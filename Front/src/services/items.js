@@ -14,9 +14,24 @@ const getAll = async () =>{
     return request.data
 }
 
-// const login = async (credentials) => {
-//   const response = await axios.post(baseUrl, credentials)
-//   return response.data
-// }
+const updateItem = async (thing) => {
+    const config = {
+      headers: { Authorization: token },
+    };
+    const id = thing.id
+    const update = {      
+      cost: thing.cost=="" ? null: thing.cost,
+      description: thing.description=="" ? null: thing.description,
+      highestPrice: thing.highestPrice=="" ? null: thing.highestPrice,
+      lowestPrice: thing.lowestPrice=="" ? null: thing.lowestPrice,
+      image: thing.image=="" ? null: thing.image,
+      name: thing.name=="" ? null: thing.name,
+      price: thing.price=="" ? null: thing.price,
+      stock: thing.stock=="" ? null: thing.stock
+    }
+  
+    const response = await axios.put(`${baseUrl}/${id}`,update, config);
+    return response.data;
+  };
 
-export default { getAll }
+export default { getAll, updateItem }

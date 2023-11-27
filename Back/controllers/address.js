@@ -5,7 +5,9 @@ const {Address, User, Order} = require('../models')
 const { tokenExtractor, isAdmin } = require('../util/middleware')
 
 //Get all users address if admin
-router.get('/',tokenExtractor, isAdmin, async (req, res) => {
+router.get('/',tokenExtractor,  async (req, res) => {
+  const user = await User.findByPk(req.decodedToken.id)
+  if(user.admin){
     const address = await Address.findAll({ 
       include: [
         {
@@ -14,7 +16,17 @@ router.get('/',tokenExtractor, isAdmin, async (req, res) => {
         }, Order
       ]
     })
-    res.json(address)
+  return res.json(address)
+  }
+  else{
+    const address = await Address.findAll({ 
+      where:{
+        userId:req.decodedToken.id
+      }
+    })
+  return   res.json(address)
+  }
+
   })
 
 //  Add address to user if user exists and only to matched token to user

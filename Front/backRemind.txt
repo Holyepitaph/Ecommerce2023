@@ -38,7 +38,7 @@ items(
 123    GET
 123     GET/:itemId
 3    POST *name, description, price, cost, highestPrice, lowestPrice, stock, image
-3    PUT  *name, description, price, cost, highestPrice, lowestPrice, stock, image
+3    PUT/:itemId  *name, description, price, cost, highestPrice, lowestPrice, stock, image
 3    DELETE/:itemId
 )
 

@@ -14,6 +14,19 @@ const getAll = async () =>{
     return request.data
 }
 
+const createOrder = async (thing) =>{
+  const config = {
+      headers : {Authorization : token},
+  }
+  const sendIt ={
+    status:"Not Prepared",
+    totalSale: thing.totalSale,
+    totalCost: thing.totalCost
+  }
+  const request = await axios.post(baseUrl,sendIt, config)
+  return request.data
+}
+
 const updateOrder = async (thing) => {
     const config = {
       headers: { Authorization: token },
@@ -26,4 +39,6 @@ const updateOrder = async (thing) => {
     return response.data;
   };
 
-export default { getAll, updateOrder }
+
+  
+export default { getAll, updateOrder, createOrder }

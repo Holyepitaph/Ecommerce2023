@@ -15,8 +15,21 @@ const { tokenExtractor, isAdmin } = require('../util/middleware')
     }
   })
   const item = await Item.findByPk(req.body.itemId)
+  const check = await CartItem.findOne({
+    where:{
+      cartId: cart.id,
+      itemId: item.id
+    }
+  })
+  if(!check){
     const cartItem = await CartItem.create({quantity: req.body.quantity, itemId: item.id, cartId: cart.id})
     res.json(cartItem)
+  } else {
+    check.quantity = req.body.quantity ? req.body.quantity : check.quantity
+    await check.save()
+    return res.json(check)
+
+  }
  }catch{
   return res.status(400).json({error})
  }

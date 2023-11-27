@@ -26,13 +26,11 @@ import categoriesService from "../../services/categories"
       <input
         value={name}
         onChange={({ target }) => setName(target.value)}
-        id='blogFormTitle'
       /><br/>
       <span>Author: </span>
         <input
         value={description}
         onChange={({ target }) => setDescription(target.value)}
-        id='blogFormAuthor'
       /><br/>
       <button  type="submit">save</button>
     </form>  

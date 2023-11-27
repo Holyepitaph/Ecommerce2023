@@ -15,6 +15,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vd
 ###
 GET http://localhost:3001/api/cart
 Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDEwNzIwOH0.snNtCB_yW-bmPjwdBpLVtoWTCx6V75ifkbW85gP2gL8
+###
+// No Cart
+###
+GET http://localhost:3001/api/cart
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJpZCI6OSwiaWF0IjoxNzAwOTU4Mzg2fQ.On8L2F_hYYYGMKf2gd5VPs0F-mfZCzOMWytbVlGNsNY
 
 
 ###

@@ -27,8 +27,8 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdEFkbWluIiwiaWQiOjIsImlhdCI6MTcwMDgwNDMyOX0.pT2yrxcMrz_9s04q-DS2vFmVkJMNTIMaMg9X6DdVWvA
 
 {
-    "addressId": 1,
-    "orderId": 2
+    "addressId": 2,
+    "orderId": 7
 }
 ###
 // Admin Should pass

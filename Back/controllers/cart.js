@@ -37,7 +37,7 @@ router.get('/',tokenExtractor, async (req, res) => {
         console.log(cart)
         res.json(cart)
       }else{
-        return res.status(400).json("User Already has a cart")
+        return res.json(check)
       }
     } catch(error) {
       return res.status(400).json({ error })

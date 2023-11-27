@@ -2,7 +2,6 @@ import { useState } from "react"
 
 
 
-
 //needs to adjust to remove admin auto status
 export const LoginText = ({login}) =>{
     const [username, setUsername] = useState('admin')

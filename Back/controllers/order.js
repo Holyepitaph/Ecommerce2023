@@ -39,16 +39,30 @@ router.get('/',tokenExtractor, async (req, res) => {
 
 
 // Changes status of order with matching :orderId if ADMIN
-router.put('/:orderId', tokenExtractor, isAdmin, async (req, res) => {
+router.put('/:orderId', tokenExtractor,  async (req, res) => {
   try{
-    const order = await Order.findOne({
-      where: { 
-        id: req.params.orderId
-      }
-    })
-    order.status = req.body.status ? req.body.status :order.status
-    await order.save()
-    res.json(order)
+    const user  = await User.findByPk(req.decodedToken.id)
+    if(user.admin){
+      const order = await Order.findOne({
+        where: { 
+          id: req.params.orderId
+        }
+      })
+      order.status = req.body.status ? req.body.status :order.status
+      await order.save()
+      return res.json(order)
+    } else{
+      const order = await Order.findOne({
+        where: { 
+          id: req.params.orderId,
+          userId: req.decodedToken.id
+        }
+      })
+      order.status = req.body.status ? req.body.status :order.status
+      await order.save()
+      return res.json(order)
+    }
+
 
   }    catch(error) {
       return res.status(400).json({ error })

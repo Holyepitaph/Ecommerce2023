@@ -89,10 +89,10 @@ export const AdminUsers = ({user,admin,items}) =>{
         }
     }
 
-    const changeAdmin = async(username) =>{
+    const changeAdmin = async(current) =>{
       const newInfo ={
-        admin: true,
-        username: username
+        admin: current.admin ? false : true,
+        username: current.username
       }
       console.log(newInfo)
       if (window.confirm(`Make ${newInfo.username} an Admin?`)) {
@@ -127,7 +127,7 @@ export const AdminUsers = ({user,admin,items}) =>{
             <div>Email: {x.email ? x.email : "Missing"}</div>
             <div>Created: {x.created}</div>
             <div>Admin Status: {x.admin ? "True" : "False"}
-            <button onClick={()=>changeAdmin(x.username)}>Make Admin</button>
+            <button onClick={()=>changeAdmin(x)}>Make Admin</button>
             </div>
             <div>Addresses</div>
             {x.addresses.map(x=>(

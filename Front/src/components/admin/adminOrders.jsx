@@ -84,7 +84,7 @@ export const AdminOrders = ({user,admin,items}) =>{
         <div>
           <AdminMenu/>
         </div>
-          {order.map(x=>(
+          {order.sort((a,b)=>b.id-a.id).map(x=>(
             <div key={x.id}>
               <div>Name: {x.user.name}</div>
               <div>Username: {x.user.username}</div>

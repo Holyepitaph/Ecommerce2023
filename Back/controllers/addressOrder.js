@@ -21,13 +21,12 @@ const addressOrder = await AddressOrder.findAll({})
  try{
   const address = await Address.findOne({
     where:{
-      userId: req.decodedToken.id,
-      addressType: "shipping"
+      id: req.body.addressId
     }
   })
   const order = await Order.findOne({
     where:{
-      userId: req.decodedToken.id
+      id: req.body.orderId
     }
   })
   const addressOrder = await AddressOrder.create({addressId: address.id, orderId: order.id})

@@ -14,6 +14,15 @@ const getAll = async () =>{
     return request.data
 }
 
+const newUser = async (thing) => {
+  const config = {
+    headers: { Authorization: token },
+  };
+
+  const response = await axios.post(baseUrl,thing, config);
+  return response.data;
+};
+
 const delUser = async (id) => {
     const config = {
       headers: { Authorization: token },
@@ -39,4 +48,4 @@ const delUser = async (id) => {
     return response.data;
   };
 
-export default { getAll, delUser, updateUser }
+export default { getAll, delUser, updateUser, newUser }
