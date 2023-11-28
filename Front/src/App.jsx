@@ -16,6 +16,7 @@ import {AdminItems,AdminSingleItem} from "./components/admin/adminItems"
 import {AdminPageMain} from "./components/admin/adminMain"
 import { AdminOrders, AdminSingleOrders } from "./components/admin/adminOrders"
 import { AdminUsers } from "./components/admin/adminUsers"
+import { AdminNewItem } from "./components/admin/adminNewItem"
 
 
 import { UserItems,UserSingleItem } from "./components/user/userItem"
@@ -113,7 +114,7 @@ const LogOut = () =>{
   }
     return(
       <>
-        <button onClick={()=>bye()}>Log Out</button>
+        <Link to="/"><button onClick={()=>bye()}>Log Out</button></Link>
       </>
     )
   }
@@ -146,6 +147,11 @@ const LogOut = () =>{
     setItems(response)
   }
 
+  const reloadItem = async () =>{
+    const response = await itemServices.getAll()
+    setItems(response)
+  }
+
 //Cart Adjustement from child components
   const addItemToCart = async (info) =>{
     await cartItemServices.newCartItem(info)
@@ -173,6 +179,7 @@ const LogOut = () =>{
     const responseB = await orderServices.getAll()
     setOrders(responseB)
   }
+  
 
   const newAddress =async (info) =>{
     await addressServices.newAddress(info)
@@ -201,11 +208,12 @@ const LogOut = () =>{
     {/* Admin Routes */}
           <Route path="/admin" element={admin ? <AdminPageMain user={user} admin={admin} items={items}/> : <Navigate replace to="/" />} />
           <Route path="/admin/Item" element={admin ? <AdminItems user={user} admin={admin} items={items}/> : <Navigate replace to="/" />} />
-          <Route path="/admin/Item/:itemId" element={admin ? <AdminSingleItem user={user} admin={admin} items={items} updateItem={updateItem} updateCat={updateCat} delCat={delcat}/> : <Navigate replace to="/" />} />
+          <Route path="/admin/NewItem" element={admin ? <AdminNewItem user={user} admin={admin} items={items} updateItem={reloadItem}/> : <Navigate replace to="/" />} />   
+          <Route path="/admin/Item/:itemId" element={admin ? <AdminSingleItem user={user} admin={admin} items={items} reloadItem={reloadItem} updateItem={updateItem} updateCat={updateCat} delCat={delcat}/> : <Navigate replace to="/" />} />
           <Route path="/admin/Categories" element={admin ? <AdminCategories user={user} admin={admin} items={items}/> : <Navigate replace to="/" />} />
           <Route path="/admin/Orders" element={admin ? <AdminOrders user={user} admin={admin} items={items}/> : <Navigate replace to="/" />} />
-          <Route path="/admin/Orders/:orderId" element={admin ? <AdminSingleOrders user={user} admin={admin} items={items}/> : <Navigate replace to="/" />} />
-          <Route path="/admin/Users" element={admin ? <AdminUsers user={user} admin={admin} items={items}/> : <Navigate replace to="/" />} />
+          <Route path="/admin/Orders/:orderId" element={admin ? <AdminSingleOrders user={user} admin={admin} deleteOrder={deleteOrder}  items={items}/> : <Navigate replace to="/" />} />
+          <Route path="/admin/Users" element={admin ? <AdminUsers user={user} admin={admin} items={items} orders={orders}/> : <Navigate replace to="/" />} />
     {/* User Routes */}
           <Route path="/user" element={user ? <UserPage user={user} /> : <Navigate replace to="/" />} />
           <Route path="/user/Item" element={user ? <UserItems items={items} cart={cart} addedToCart={addItemToCart}/> : <Navigate replace to="/" />} />

@@ -39,6 +39,12 @@ const updateOrder = async (thing) => {
     return response.data;
   };
 
-
+  const deleteOrder = async (thing) => {
+    const config = {
+      headers: { Authorization: token },
+    };
+    const response = await axios.delete(`${baseUrl}/${thing}`, config);
+    return response.data;
+  };
   
-export default { getAll, updateOrder, createOrder }
+export default { getAll, updateOrder, createOrder, deleteOrder }

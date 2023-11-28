@@ -34,4 +34,31 @@ const updateItem = async (thing) => {
     return response.data;
   };
 
-export default { getAll, updateItem }
+  const newItem = async (thing) =>{
+    const config = {
+      headers: { Authorization: token },
+    }
+    const update = {      
+      cost:  thing.cost,
+      description:  thing.description,
+      highestPrice:  thing.highestPrice,
+      lowestPrice:  thing.lowestPrice,
+      image:  thing.image,
+      name:  thing.name,
+      price: thing.price,
+      stock:  thing.stock
+    }
+    const response = await axios.post(baseUrl,update, config);
+    return response.data;
+  }
+
+  const delItem = async (thing) =>{
+    const config = {
+      headers: { Authorization: token },
+    }
+ const id = thing
+    const response = await axios.delete(`${baseUrl}/${id}`, config);
+    return response.data;
+  }
+
+export default { getAll, updateItem, newItem,delItem }

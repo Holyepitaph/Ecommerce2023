@@ -2,6 +2,7 @@ import { UserMenu } from "./userMenu"
 import { useState } from "react"
 import { Link, useParams, useNavigate } from "react-router-dom"
 import cartItemServices from "../../services/cartItem"
+import { ImagesViewer } from "../image"
 
 const ItemToCart = ({item, added})=>{
   const [quantity, setQuantity] = useState(0)
@@ -48,6 +49,7 @@ export const UserItems = ({items,addedToCart}) =>{
     {items.map(x=>(
       <div key={x.id}>
         <Link to={`/user/Item/${x.id}`} >
+          <ImagesViewer change={"test"} info={x.image}/>
           <div>Name: {x.name}</div>
           <div>Description: {x.description}</div>
           <div>Stock: {x.stock}</div>
@@ -56,7 +58,6 @@ export const UserItems = ({items,addedToCart}) =>{
           <ul>
           {x.categories.map(x=><li key={x.id}>{x.categoryName}</li>)}
           </ul>
-          <div>Image: {x.image}</div>
           <div>Reviews: {x.reviews.map(x=>x.review)}</div>
         </Link>
           <ItemToCart item={x} added={addToCart}/>

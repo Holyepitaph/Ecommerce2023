@@ -67,6 +67,9 @@ export const AdminOrders = ({user,admin,items}) =>{
           }
       }
 
+
+  
+
     
       if(!order){
         return(
@@ -126,7 +129,7 @@ export const AdminOrders = ({user,admin,items}) =>{
     }
     
     // Display Single Order
-    export const AdminSingleOrders = ({user,admin,items}) =>{
+    export const AdminSingleOrders = ({user,admin,items, deleteOrder}) =>{
       const [order, setOrder] = useState(null)
       const id = useParams().orderId
       
@@ -139,6 +142,13 @@ export const AdminOrders = ({user,admin,items}) =>{
         }
         orderTest()
       },[])
+
+      const delOrder = async (info) =>{
+        if (window.confirm(`Please Make sure User was notified and Items were not sent. Delete Order?`)) {
+          await orderService.deleteOrder(info)
+          deleteOrder()
+          }
+      }
   
     
       if(!order){
@@ -188,6 +198,7 @@ export const AdminOrders = ({user,admin,items}) =>{
                 <li>{x.image}</li>
               </ul>
             ))}
+            <Link to="/admin/Users"><button onClick={()=>delOrder(order[0].id)}>Delete Order</button></Link>
             <br/>
           </div>
         </>

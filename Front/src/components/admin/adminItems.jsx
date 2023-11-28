@@ -1,8 +1,10 @@
 import { AdminMenu } from "./adminMenu"
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import userService from "../../services/user"
 import categoriesService from "../../services/categories"
+import itemServices from "../../services/items"
+import {ImagesViewer} from '../image'
 
 // Display All Items
 export const AdminItems = ({user,admin,items}) =>{
@@ -14,25 +16,28 @@ export const AdminItems = ({user,admin,items}) =>{
     <div>
       <AdminMenu/>
     </div>
+    <Link to="/admin/NewItem"><button className="w-full">Create New Item</button></Link>
+    <div className="grid grid-cols-3 gap-4">
     {items.map(x=>(
-      <Link to={`/admin/Item/${x.id}`} key={x.id}>
+      <Link className="border" to={`/admin/Item/${x.id}`} key={x.id}>
+        <ImagesViewer change={"w-24"} info={x.image}/>
         <div>ID: {x.id}</div> 
+        <div>Name: {x.name}</div>
+        <div>Description: {x.description}</div>
+        <div>Price: {x.price}</div>
+        <div>Cost: {x.cost}</div>
+        <div>Highest Price: {x.highestPrice}</div>
+        <div>Lowest Price: {x.lowestPrice}</div>
+        <div>Stock: {x.stock}</div>
         <div>Categories:</div>
         <ul>
         {x.categories.map(x=><li key={x.id}>{x.categoryName}</li>)}
         </ul>
-        <div>Cost: {x.cost}</div>
-        <div>Description: {x.description}</div>
-        <div>Highest Price: {x.highestPrice}</div>
-        <div>Lowest Price: {x.lowestPrice}</div>
-        <div>Image: {x.image}</div>
-        <div>Name: {x.name}</div>
-        <div>Price: {x.price}</div>
         <div>Reviews: {x.reviews.map(x=>x.review)}</div>
-        <div>Stock: {x.stock}</div>
         <br/>
       </Link>
     ))}
+    </div>
     </>
   )
   }  
@@ -205,57 +210,78 @@ export const AdminItems = ({user,admin,items}) =>{
 
 
   // Display Single Item
-export const AdminSingleItem = ({user,admin,items, updateItem, updateCat, delCat}) =>{
+export const AdminSingleItem = ({user,admin,items, updateItem, updateCat, delCat, reloadItem}) =>{
   const id = useParams().itemId
-  const single = items.filter(x=>x.id == id)
+  const navigate = useNavigate()
+  if(!items){
+    return(
+      <>
+        Loading
+      </>
+    )
+  } else{
 
-  const updateItemInfo = async (itemInfo) =>{
+    const single = items.filter(x=>x.id == id)
+  
+    const updateItemInfo = async (itemInfo) =>{
+        if (window.confirm(`Are you certain it's time to update ${single[0].name}`)) {
+          updateItem({...itemInfo})
+          }
+    }
+  
+    const updateCategoryInfo = async (catInfo) =>{
       if (window.confirm(`Are you certain it's time to update ${single[0].name}`)) {
-        updateItem({...itemInfo})
+        updateCat({...catInfo})
         }
   }
-
-  const updateCategoryInfo = async (catInfo) =>{
-    if (window.confirm(`Are you certain it's time to update ${single[0].name}`)) {
-      updateCat({...catInfo})
+  
+    const deleteCategoryInfo = (catInfoDel) =>{
+      const catInfo ={
+        categoryId:catInfoDel,
+        itemId: Number(id)
       }
-}
-
-  const deleteCategoryInfo = (catInfoDel) =>{
-    const catInfo ={
-      categoryId:catInfoDel,
-      itemId: Number(id)
+      if (window.confirm(`Remove Category from ${single[0].name} ?`)) {
+        delCat({...catInfo})
+        }
     }
-    if (window.confirm(`Remove Category from ${single[0].name} ?`)) {
-      delCat({...catInfo})
-      }
+
+    const delItem =async (info) =>{
+      await itemServices.delItem(info)
+      reloadItem()
+      navigate(`/admin/Item/`)
+    }
+  
+  
+  
+    return(
+      <>
+      <div>
+        <AdminMenu/>
+      </div>
+        <div>
+          <ImagesViewer change={"test"} info={single[0].image}/>
+          <div>Image: {single[0].image}</div>
+          <button onClick={()=>delItem(single[0].id)}>Remove Item</button>
+          <div>ID: {single[0].id}</div>
+          <div>Name: {single[0].name}</div>
+          <div>Description: {single[0].description}</div>
+          <div>Price: {single[0].price}</div>
+          <div>Cost: {single[0].cost}</div>
+          <div>Highest Price: {single[0].highestPrice}</div>
+          <div>Lowest Price: {single[0].lowestPrice}</div>
+          <div>Stock: {single[0].stock}</div>
+          <div>Categories:</div>
+          <ul> 
+          {single[0].categories.map(x=>(<li key={x.id}>{x.categoryName} 
+          <button onClick={()=>deleteCategoryInfo(x.id)}>Delete</button>
+          </li>))}</ul>
+          <EditCategories item={single[0]} catInfo={updateCategoryInfo}/>
+          <div>Reviews: {single[0].reviews.map(x=>x.review)}</div>
+          <br/>
+          <EditItem item={single[0]} itemInfo={updateItemInfo}/>
+        </div>
+      </>
+    )
   }
 
-  return(
-    <>
-    <div>
-      <AdminMenu/>
-    </div>
-      <div>
-        <div>ID: {single[0].id}</div>
-        <div>Categories:</div>
-        <ul> 
-        {single[0].categories.map(x=>(<li key={x.id}>{x.categoryName} 
-        <button onClick={()=>deleteCategoryInfo(x.id)}>Delete</button>
-        </li>))}</ul>
-        <EditCategories item={single[0]} catInfo={updateCategoryInfo}/>
-        <div>Cost: {single[0].cost}</div>
-        <div>Description: {single[0].description}</div>
-        <div>Highest Price: {single[0].highestPrice}</div>
-        <div>Lowest Price: {single[0].lowestPrice}</div>
-        <div>Image: {single[0].image}</div>
-        <div>Name: {single[0].name}</div>
-        <div>Price: {single[0].price}</div>
-        <div>Reviews: {single[0].reviews.map(x=>x.review)}</div>
-        <div>Stock: {single[0].stock}</div>
-        <br/>
-        <EditItem item={single[0]} itemInfo={updateItemInfo}/>
-      </div>
-    </>
-  )
 }

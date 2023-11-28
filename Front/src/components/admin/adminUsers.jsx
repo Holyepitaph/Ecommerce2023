@@ -58,7 +58,7 @@ const [password, setPassword] = useState("")
 }
 
 //Display all Users
-export const AdminUsers = ({user,admin,items}) =>{
+export const AdminUsers = ({user,admin,items,orders}) =>{
     const [userTotal, setUserTotal] = useState([])
   
     useEffect(()=>{
@@ -67,7 +67,7 @@ export const AdminUsers = ({user,admin,items}) =>{
         return setUserTotal(response)
       }
       userTest()
-    },[])
+    },[orders])
   
   
     const deleteUser =async (user) =>{

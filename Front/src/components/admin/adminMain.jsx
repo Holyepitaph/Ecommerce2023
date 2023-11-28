@@ -1,6 +1,11 @@
 import { AdminMenu } from "./adminMenu"
+import axios from "axios"
+import { useEffect, useState } from "react"
+import imageServices from "../../services/images"
+
 
 export const AdminPageMain = ({user,admin,items}) =>{
+
 
 
     return(
@@ -8,7 +13,8 @@ export const AdminPageMain = ({user,admin,items}) =>{
     <div>
       <AdminMenu/>
     </div>
-    ADMIN
+    <div className="App">
+        </div>
     </>
   )
   }
