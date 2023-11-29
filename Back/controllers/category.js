@@ -24,7 +24,7 @@ router.post('/',tokenExtractor,isAdmin, async (req, res) => {
     const category = await Category.create({categoryDescription: req.body.categoryDescription,categoryName:req.body.categoryName})
     res.json(category)
   } catch(error) {
-    return res.status(400).json({ error })
+    return res.status(400).json("Whoopsie")
   }
 })
 

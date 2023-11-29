@@ -18,22 +18,27 @@ import categoriesService from "../../services/categories"
     }
 
     return(
-      <div>
-      <h2>New Category</h2>
-
-      <form onSubmit={sendCategory}>
-      <span>Title: </span>
-      <input
-        value={name}
-        onChange={({ target }) => setName(target.value)}
-      /><br/>
-      <span>Author: </span>
-        <input
-        value={description}
-        onChange={({ target }) => setDescription(target.value)}
-      /><br/>
-      <button  type="submit">save</button>
-    </form>  
+      <div className="bg-gray-800 rounded-2xl mt-4 pl-4 py-4">
+      <h2 className="text-2xl text-blue-400">New Category</h2>
+      <form className="flex flex-col mt-4" onSubmit={sendCategory}>
+          <div>
+              <span>Title: </span>
+              <input
+                value={name}
+                onChange={({ target }) => setName(target.value)}
+              />
+          </div>
+          <br/>
+          <div>
+              <span>Author: </span>
+              <input
+              value={description}
+              onChange={({ target }) => setDescription(target.value)}
+              />
+          </div>
+          <br/>
+          <button className="bg-black w-11/12 mx-4" type="submit">save</button>
+      </form>  
     </div>
 
     )
@@ -63,32 +68,35 @@ export const AdminCategories = ({user,admin,items}) =>{
   
     if(!categories){
       return(
-        <>
+        <div className="w-screen px-4">
         <div>
           <AdminMenu/>
         </div>
           Now Loading
-        </>
+        </div>
       )
     }
     return(
-      <>
+      <div className="w-screen px-4">
       <div>
         <AdminMenu/>
       </div>
+      <div className="w-full grid grid-cols-3 gap-4 mt-4">
         {categories.map(x=>(
-          <div key={x.id}>
+          <div className="bg-gray-800 rounded-2xl pl-4 py-4" key={x.id}>
             <div>Name: {x.categoryName}</div>
             <div>Description: {x.categoryDescription}</div>
-            <div>
-              <ul>
-                {x.items.map(x=><li key={x.id}>{x.name}</li>)}
-              </ul>
+            <div className="bg-gray-900 rounded-2xl px-2 mr-4 mt-4 py-2">
+                <div>Items: </div>
+                <ul>
+                  {x.items.map(x=><li className="ml-4" key={x.id}> {x.name}</li>)}
+                </ul>
             </div>
             <br/>
           </div>
         ))}
+        </div>
         <CategoryForm makeCategory={newCategory}/>
-      </>
+      </div>
     )
   }

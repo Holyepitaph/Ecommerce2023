@@ -22,8 +22,8 @@ const [password, setPassword] = useState("")
   }
 
   return(
-    <>
-       <form onSubmit={change}>
+    <div className="bg-gray-900 rounded-2xl mr-4 mt-4 py-4 pl-2">
+       <form className="flex flex-col gap-2 pl-2" onSubmit={change}>
        <div>Change Information</div>
         <div>
           Email: 
@@ -49,11 +49,11 @@ const [password, setPassword] = useState("")
             onChange={({target})=>setPassword(target.value)}
           />
         </div>
-        <button type="submit">
-          login
+        <button className="bg-black mr-4 mt-2" type="submit">
+          Submit
         </button>
       </form>
-    </>
+    </div>
   )
 }
 
@@ -106,53 +106,57 @@ export const AdminUsers = ({user,admin,items,orders}) =>{
   
     if(!userTotal){
       return(
-        <>
+        <div className="w-screen px-4">
         <div>
           <AdminMenu/>
         </div>
           Now Loading
-        </>
+        </div>
       )
     }
     return(
-      <>
+      <div className="w-screen px-4">
       <div>
         <AdminMenu/>
       </div>
+      <div className="grid grid-cols-2 gap-4 mt-4">
         {userTotal.map(x=>(
-          <div key={x.id}>
+          <div className="bg-gray-800 pl-4 flex flex-col gap-2 py-4 rounded-2xl" key={x.id}>
             <div>Username: {x.username}</div>
             <div>Name: {x.name}</div>
             <div>Phone: {x.phone ? x.phone : "Missing"}</div>
             <div>Email: {x.email ? x.email : "Missing"}</div>
             <div>Created: {x.created}</div>
             <div>Admin Status: {x.admin ? "True" : "False"}
-            <button onClick={()=>changeAdmin(x)}>Make Admin</button>
+                <button className="mt-2" onClick={()=>changeAdmin(x)}>Make Admin</button>
             </div>
-            <div>Addresses</div>
-            {x.addresses.map(x=>(
-              <ul key={x.id}>
-                <li>{x.id}</li>
-                <li>{x.addressType}</li>
-              </ul>
-            ))}
-            <div>Orders</div>
-            {x.orders.sort((a, b)=> a.id - b.id).map(x=>(
-              <ul key={x.id}>
-                <Link to={`/admin/Orders/${x.id}`}>
-                  <li>{x.id}</li>
-                  <li>{x.status}</li>
-                  <li>{x.dateOfStatus}</li>
-                  <li>{x.totalCost}</li>
-                  <li>{x.totalSale}</li>
-                </Link>
-              </ul>
-            ))}
-            <button onClick={()=>deleteUser(x)}>Delete User</button>
+            <div className="bg-gray-900 rounded-2xl px-2 mr-4 mt-4">
+                <div>Addresses</div>
+                {x.addresses.map(x=>(
+                  <ul className="ml-4" key={x.id}>
+                    <li>Address Type: {x.addressType}</li>
+                  </ul>
+                ))}
+            </div>
+            <div className="bg-gray-900 rounded-2xl px-2 mr-4 mt-4">
+                <div>Orders</div>
+                {x.orders.sort((a, b)=> a.id - b.id).map(x=>(
+                  <ul className="mt-4 ml-4" key={x.id}>
+                    <Link to={`/admin/Orders/${x.id}`}>
+                      <li>Status: {x.status}</li>
+                      <li>Date Created: {x.dateOfStatus}</li>
+                      <li>Cost: {x.totalCost}</li>
+                      <li>Sale: {x.totalSale}</li>
+                    </Link>
+                  </ul>
+                ))}
+            </div>
+            <button className="mr-4" onClick={()=>deleteUser(x)}>Delete User</button>
             <EditUser info={x} newInfo={updateUser}/>
             <br/>
           </div>
         ))}
-      </>
+        </div>
+      </div>
     )
   }

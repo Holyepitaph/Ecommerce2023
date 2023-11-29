@@ -24,11 +24,11 @@ const EditUser = ({user, update}) =>{
       }
     
       return(
-        <>
-           <form onSubmit={change}>
-           <div>Change Information</div>
+        <div className="bg-gray-800 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
+           <form className="flex flex-col gap-4" onSubmit={change}>
+           <div className="text-xl">Change Information</div>
             <div>
-              Email: 
+              <span className="mr-4">Email: </span>
               <input 
                 type='text'
                 value={email}
@@ -36,7 +36,7 @@ const EditUser = ({user, update}) =>{
               />
             </div>
             <div>
-              Phone Number: 
+              <span className="mr-4">Phone Number:</span> 
               <input 
                 type='text'
                 value={phone}
@@ -44,18 +44,18 @@ const EditUser = ({user, update}) =>{
               />
             </div>
             <div>
-              Password: 
+              <span className="mr-4">Password: </span>
               <input
                 type="text"
                 value={password}
                 onChange={({target})=>setPassword(target.value)}
               />
             </div>
-            <button type="submit">
-              login
+            <button className="bg-black w-11/12 ml-3 mt-2" type="submit">
+              Change
             </button>
           </form>
-        </>
+        </div>
       )
     }
 
@@ -83,34 +83,42 @@ const [total, setTotal] = useState(null)
             </>
         )
       }
-
     return(
-        <>
+        <div className="w-screen px-4">
             <UserMenu/>
-            <div>Username: {total.username}</div>
-            <div>Name: {total.name}</div>
-            <div>Email: {total.email}</div>
-            <div>Phone: {total.phone}</div>
-            <div>Addresses: </div>
-            {total.addresses.map(x=>(
-                    <ul key={x.id}>
-                        <li>Address Type: {x.addressType}</li>
-                        <li>Street: {x.street}</li>
-                        <li>City: {x.city}</li>
-                        <li>State: {x.state}</li>
-                        <li>Zip: {x.zipcode}</li>
-                        <li>Country: {x.country}</li>
-                    </ul>
-                ))}
-            <div>Orders:</div>
-            {total.orders.map(x=>(
-                <ul key={x.id}>
-                    <li>Status: {x.status}</li>
-                    <li>Date Ordered: {x.dateOfStatus}</li>
-                    <li>Sale Total: {x.totalSale}</li>
-                </ul>
-            ))}
-            <EditUser update={update} user={total}/>
-        </>
+            <div className="flex flex-col gap-4">
+              <div className="bg-gray-800 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
+                  <div>Username: {total.username}</div>
+                  <div>Name: {total.name}</div>
+                  <div>Email: {total.email}</div>
+                  <div>Phone: {total.phone}</div>
+              </div>
+              <EditUser update={update} user={total}/>
+              <div className="bg-gray-800 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
+                  <div>Addresses: </div>
+                  {total.addresses === undefined ? "None on File": total.addresses.map(x=>(
+                        <ul className="bg-gray-900 rounded-2xl px-2 mt-4 mr-4" key={x.id}>
+                            <li>Address Type: {x.addressType}</li>
+                            <li>Street: {x.street}</li>
+                            <li>City: {x.city}</li>
+                            <li>State: {x.state}</li>
+                            <li>Zip: {x.zipcode}</li>
+                            <li>Country: {x.country}</li>
+                        </ul>
+                    ))}
+              </div>
+              <div className="bg-gray-800 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
+                  <div>Orders:</div>
+                  {total.orders === undefined ? "None on File" : total.orders.map(x=>(
+                      <ul className="bg-gray-900 rounded-2xl px-2 mt-4 mr-4" key={x.id}>
+                          <li>Status: {x.status}</li>
+                          <li>Date Ordered: {x.dateOfStatus}</li>
+                          <li>Sale Total: {x.totalSale}</li>
+                      </ul>
+                  ))}
+              </div>
+              
+            </div>
+        </div>
     )
 }
