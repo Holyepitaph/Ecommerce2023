@@ -16,6 +16,7 @@ import {AdminItems,AdminSingleItem} from "./components/admin/adminItems"
 import {AdminPageMain} from "./components/admin/adminMain"
 import { AdminOrders, AdminSingleOrders } from "./components/admin/adminOrders"
 import { AdminUsers } from "./components/admin/adminUsers"
+import { AdminNewItem } from "./components/admin/adminNewItem"
 
 
 import { UserItems,UserSingleItem } from "./components/user/userItem"
@@ -106,26 +107,49 @@ const LogOut = () =>{
   const bye = () =>{
     window.localStorage.removeItem("BbubbanLoggedUserCommerce")
     setUser(null)
+    setAdmin(null)
     setCart(null)
     setItems(null)
     setOrders(null)
     setAddress(null)
   }
     return(
-      <>
-        <button onClick={()=>bye()}>Log Out</button>
-      </>
+      <div className="w-screen px-4 ">
+        <Link className="" to="/"><button className="w-full" onClick={()=>bye()}>Log Out</button></Link>
+      </div>
     )
   }
 
-  const BlankMenu = () =>(
-    <div>
-  <Link to='/'>Home</Link>
-  <Link to='/admin'>Admin</Link>
-  <Link to='/user'>User</Link>
-    </div>
+  const BlankMenu = () =>{
 
+  return(
+    <div className="bg-gray-800 w-11/12 m-4 flex justify-around py-2 absolute top-0 rounded-2xl bg-opacity-80">
+        <Link to='/'>Home</Link>
+              <div className="group"><div>Admin</div>
+                    <div className="absolute bg-gray-800 rounded-b-2xl px-4 pb-4 pt-2 -ml-3 hidden group-hover:block ">
+                       <Link className="group-hover:block hidden" to='/admin/Item'>Item List</Link>
+                       <div className="border-gray-700 border w-full my-1"/>
+                       <Link className="group-hover:block hidden" to='/admin/Categories'>Categories</Link>
+                       <div className="border-gray-700 border w-full my-1"/>
+                       <Link className="group-hover:block hidden" to='/admin/Orders'>Orders</Link>
+                       <div className="border-gray-700 border w-full my-1"/>
+                       <Link className="group-hover:block hidden" to='/admin/Users'>Users</Link>
+                    </div>
+              </div>
+              <div className="group"><div>User</div>
+                    <div className="absolute bg-gray-800 rounded-b-2xl px-4 pb-4 pt-2 -ml-5 hidden group-hover:block">
+                       <Link className="group-hover:block hidden" to='/user/Item'>Item List</Link>
+                       <div className="border-gray-700 border w-full my-1"/>
+                       <Link className="group-hover:block hidden" to='/user/Cart'>Cart</Link>
+                       <div className="border-gray-700 border w-full my-1"/>
+                       <Link className="group-hover:block hidden" to='/user/Orders'>Orders</Link>
+                       <div className="border-gray-700 border w-full my-1"/>
+                       <Link className="group-hover:block hidden" to='/user/Details'>User Details</Link>
+                    </div>
+              </div>
+    </div>
   )
+}
 
 //Category and Item adjustement from Child components
   const updateCat =async (info) =>{
@@ -142,6 +166,11 @@ const LogOut = () =>{
 
   const updateItem =async (info) =>{
     await itemServices.updateItem(info)
+    const response = await itemServices.getAll()
+    setItems(response)
+  }
+
+  const reloadItem = async () =>{
     const response = await itemServices.getAll()
     setItems(response)
   }
@@ -173,6 +202,7 @@ const LogOut = () =>{
     const responseB = await orderServices.getAll()
     setOrders(responseB)
   }
+  
 
   const newAddress =async (info) =>{
     await addressServices.newAddress(info)
@@ -180,42 +210,37 @@ const LogOut = () =>{
     setAddress(addressTest)
   }
 
-  const Test = () =>(
-    <>
+  const Main = () =>(
       <div>
-        Main Prior to Any interaction
+        {!user ? <LoginText login={login}/>: <LogOut/>}
+        {user ? null : <NewUser/>}
       </div>
-    </>
   )
 
   return (
     <>
       <Router>
-            {/* <AdminMenu/> */}
-      {/* {user.admin? <AdminMenu/> : <UserMenu/>} */}
       <BlankMenu/>
-
-      {!user ? <LoginText login={login}/>: <LogOut/>}
-      <button onClick={()=>console.log(items[0])}>TEST</button>
         <Routes>
     {/* Admin Routes */}
           <Route path="/admin" element={admin ? <AdminPageMain user={user} admin={admin} items={items}/> : <Navigate replace to="/" />} />
           <Route path="/admin/Item" element={admin ? <AdminItems user={user} admin={admin} items={items}/> : <Navigate replace to="/" />} />
-          <Route path="/admin/Item/:itemId" element={admin ? <AdminSingleItem user={user} admin={admin} items={items} updateItem={updateItem} updateCat={updateCat} delCat={delcat}/> : <Navigate replace to="/" />} />
+          <Route path="/admin/NewItem" element={admin ? <AdminNewItem user={user} admin={admin} items={items} updateItem={reloadItem}/> : <Navigate replace to="/" />} />   
+          <Route path="/admin/Item/:itemId" element={admin ? <AdminSingleItem user={user} admin={admin} items={items} reloadItem={reloadItem} updateItem={updateItem} updateCat={updateCat} delCat={delcat}/> : <Navigate replace to="/" />} />
           <Route path="/admin/Categories" element={admin ? <AdminCategories user={user} admin={admin} items={items}/> : <Navigate replace to="/" />} />
           <Route path="/admin/Orders" element={admin ? <AdminOrders user={user} admin={admin} items={items}/> : <Navigate replace to="/" />} />
-          <Route path="/admin/Orders/:orderId" element={admin ? <AdminSingleOrders user={user} admin={admin} items={items}/> : <Navigate replace to="/" />} />
-          <Route path="/admin/Users" element={admin ? <AdminUsers user={user} admin={admin} items={items}/> : <Navigate replace to="/" />} />
+          <Route path="/admin/Orders/:orderId" element={admin ? <AdminSingleOrders user={user} admin={admin} deleteOrder={deleteOrder}  items={items}/> : <Navigate replace to="/" />} />
+          <Route path="/admin/Users" element={admin ? <AdminUsers user={user} admin={admin} items={items} orders={orders}/> : <Navigate replace to="/" />} />
     {/* User Routes */}
           <Route path="/user" element={user ? <UserPage user={user} /> : <Navigate replace to="/" />} />
           <Route path="/user/Item" element={user ? <UserItems items={items} cart={cart} addedToCart={addItemToCart}/> : <Navigate replace to="/" />} />
-          <Route path="/user/Item/:itemId" element={user ? <UserSingleItem items={items} cart={cart} addedToCart={addItemToCart}/> : <Navigate replace to="/" />} />
+          <Route path="/user/Item/:itemId" element={user ? <UserSingleItem items={items} cart={cart} reloadItem={reloadItem} addedToCart={addItemToCart}/> : <Navigate replace to="/" />} />
           <Route path="/user/Cart" element={user ? <UserCart user={user} cart={cart} removeFromCart={removeFromCart}/> : <Navigate replace to="/" />} />
           <Route path="/user/Orders" element={user ? <UserOrder user={user} orders={orders} deleteOrder={deleteOrder}/> : <Navigate replace to="/" />} />
           <Route path="/user/Orders/:orderId" element={user ? <UserSingleOrder user={user} orders={orders} /> : <Navigate replace to="/" />} />
           <Route path="/user/Details" element={user ? <UserDetails user={user} items={items} /> : <Navigate replace to="/" />} />
           <Route path="/user/Address" element={user ? <UserAddress user={user} address={address} cart={cart} update={updateCart} newAddress={newAddress}/> : <Navigate replace to="/" />} />
-          <Route path="/" element={<NewUser/>} />
+          <Route path="/" element={<Main/>} />
         </Routes>
       </Router>
     </>

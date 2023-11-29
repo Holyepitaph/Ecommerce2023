@@ -36,7 +36,7 @@ const OrderStatusForm = ({order,newStatus}) =>{
             <option value='Order Canceled'>Order Canceled</option>
           </select>
         </label>
-        <button type="submit" >Change Order Status</button>
+        <button className="bg-black w-11/12 mr-4 my-4 active:translate-y-2 active:scale-y-90 focus:border-black" type="submit" >Change Order Status</button>
       </form>
     </>
   )
@@ -67,25 +67,29 @@ export const AdminOrders = ({user,admin,items}) =>{
           }
       }
 
+
+  
+
     
       if(!order){
         return(
-          <>
+          <div className="w-screen px-4">
           <div>
             <AdminMenu/>
           </div>
             Now Loading
-          </>
+          </div>
         )
       }
     
       return(
-        <>
+        <div className="w-screen px-4">
         <div>
           <AdminMenu/>
         </div>
+        <div className="w-full grid grid-cols-2 gap-4 mt-4 shadow-xl">
           {order.sort((a,b)=>b.id-a.id).map(x=>(
-            <div key={x.id}>
+            <div className="bg-gray-800 rounded-2xl pl-4 py-4" key={x.id}>
               <div>Name: {x.user.name}</div>
               <div>Username: {x.user.username}</div>
               <div>Status Date: {x.dateOfStatus}</div>
@@ -94,39 +98,44 @@ export const AdminOrders = ({user,admin,items}) =>{
               </div>
               <div>Cost: {x.totalCost}</div>
               <div>Sale: {x.totalSale}</div>
-              <div>Address</div>
-              {x.addresses.map(x=>(
-                <ul key={x.id}>
-                  <li>Address Type: {x.addressType}</li>
-                  <li>City: {x.city}</li>
-                  <li>Country: {x.country}</li>
-                  <li>State: {x.state}</li>
-                  <li>Street: {x.street}</li>
-                  <li>Zipcode: {x.zipcode}</li>
-                </ul>
-              ))}
-              <div>Items</div>
-              <ul >
-              {x.items.map(x=>(
-                <Link to={`/admin/Item/${x.id}`} key={x.id}>
-                  <li>Item: {x.name}</li>
-                  <li>Quantity: {x.orderItem.quantity}</li>
-                  <li>Desc: {x.description}</li>
-                  <li>Cost: {x.cost}</li>
-                  <li>Purchase Price{x.orderItem.priceAtPurchase}</li>
-                  <br/>
-                </Link>
-              ))}
-              </ul>
+              <div className="bg-gray-900 rounded-2xl px-2 mt-4 mr-4 shadow-2xl py-2">
+                  <div>Address : </div>
+                  {x.addresses.map(x=>(
+                    <ul className="pl-4" key={x.id}>
+                      <li>Address Type: {x.addressType}</li>
+                      <li>City: {x.city}</li>
+                      <li>Country: {x.country}</li>
+                      <li>State: {x.state}</li>
+                      <li>Street: {x.street}</li>
+                      <li>Zipcode: {x.zipcode}</li>
+                    </ul>
+                  ))}
+              </div>
+              <div className="bg-gray-900 rounded-2xl px-2 mt-4 mr-4 shadow-2xl py-2">
+                   <div>Items</div>
+                   <ul >
+                   {x.items.map(x=>(
+                     <Link className="pl-4" to={`/admin/Item/${x.id}`} key={x.id}>
+                       <li>Item: {x.name}</li>
+                       <li>Quantity: {x.orderItem.quantity}</li>
+                       <li>Desc: {x.description}</li>
+                       <li>Cost: {x.cost}</li>
+                       <li>Purchase Price{x.orderItem.priceAtPurchase}</li>
+                       <br/>
+                     </Link>
+                   ))}
+                   </ul>
+              </div>
               <br/>
             </div>
           ))}
-        </>
+          </div>
+        </div>
       )
     }
     
     // Display Single Order
-    export const AdminSingleOrders = ({user,admin,items}) =>{
+    export const AdminSingleOrders = ({user,admin,items, deleteOrder}) =>{
       const [order, setOrder] = useState(null)
       const id = useParams().orderId
       
@@ -139,16 +148,23 @@ export const AdminOrders = ({user,admin,items}) =>{
         }
         orderTest()
       },[])
+
+      const delOrder = async (info) =>{
+        if (window.confirm(`Please Make sure User was notified and Items were not sent. Delete Order?`)) {
+          await orderService.deleteOrder(info)
+          deleteOrder()
+          }
+      }
   
     
       if(!order){
         return(
-          <>
+          <div className="w-screen px-4">
           <div>
             <AdminMenu/>
           </div>
             Loading
-          </>
+          </div>
         )
       }
     
@@ -188,6 +204,7 @@ export const AdminOrders = ({user,admin,items}) =>{
                 <li>{x.image}</li>
               </ul>
             ))}
+            <Link to="/admin/Users"><button onClick={()=>delOrder(order[0].id)}>Delete Order</button></Link>
             <br/>
           </div>
         </>

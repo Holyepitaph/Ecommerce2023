@@ -7,3 +7,8 @@ npm install --save-dev cypress
 -------------------------------
 transfer vite config
 ------------------------------
+
+
+npm install -D tailwindcss postcss autoprefixer
+
+npx tailwindcss init -p

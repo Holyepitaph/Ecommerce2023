@@ -36,11 +36,11 @@ const NewAddress = ({ newAddressInfo}) =>{
       }
     
       return(
-        <>
-           <form onSubmit={change}>
+        <div className="bg-gray-800 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
+           <form className="flex flex-col gap-3" onSubmit={change}>
            <div>New Address: </div>
            <label>
-              Address Type:  
+              <span className="mr-4">Address Type:</span>  
               <select          
               value={addressType}
               onChange={({ target }) => setAddressType(target.value)}>
@@ -50,7 +50,7 @@ const NewAddress = ({ newAddressInfo}) =>{
               </select>
             </label>
             <div>
-              Street Line:
+              <span className="mr-4">Street Line:</span>
               <input 
                 type='text'
                 value={street}
@@ -58,7 +58,7 @@ const NewAddress = ({ newAddressInfo}) =>{
               />
             </div>
             <div>
-              City:  
+              <span className="mr-4">City: </span> 
               <input 
                 type='text'
                 value={city}
@@ -66,7 +66,7 @@ const NewAddress = ({ newAddressInfo}) =>{
               />
             </div>
             <div>
-              State: 
+              <span className="mr-4">State: </span>
               <input
                 type="text"
                 value={state}
@@ -74,7 +74,7 @@ const NewAddress = ({ newAddressInfo}) =>{
               />
             </div>
             <div>
-              Country
+              <span className="mr-4">Country:</span>
               <input
                 type="text"
                 value={country}
@@ -82,18 +82,18 @@ const NewAddress = ({ newAddressInfo}) =>{
               />
             </div>
             <div>
-              Zipcode: 
+              <span className="mr-4">Zipcode:</span> 
               <input
                 type="number"
                 value={zipcode}
                 onChange={({target})=>setZipcode(target.value)}
               />
             </div>
-            <button type="submit">
+            <button className="bg-black w-11/12 ml-3 mt-3" type="submit">
               Send
             </button>
           </form>
-        </>
+        </div>
       )
     }
 
@@ -135,23 +135,27 @@ export const UserAddress = ({address,cart,update, newAddress}) => {
         }
     
         return(
-            <>
+            <div className="w-screen px-4 mt-4 flex flex-col gap-4">
                 <UserMenu/>
-                <div>Select Address: </div>
-                {address.map(x=>(
-                    <ul key={x.id}>
-                        <button onClick={()=>createOrder(x.id)}>
-                        <li>Address Type: {x.addressType}</li>
-                        <li>Street: {x.street}</li>
-                        <li>City: {x.city}</li>
-                        <li>State: {x.state}</li>
-                        <li>Country: {x.country}</li>
-                        <li>Zipcode: {x.zipcode}</li>
-                        </button>
-                    </ul>
-                ))}
+              <div className="bg-gray-800 px-4 flex flex-col gap-2 py-4 rounded-2xl">
+                  <div>Select Address: </div>
+                  <div className="w-full grid grid-cols-3 gap-4">
+                  {address.map(x=>(
+                      <ul key={x.id}>
+                          <button onClick={()=>createOrder(x.id)}>
+                          <li>Address Type: {x.addressType}</li>
+                          <li>Street: {x.street}</li>
+                          <li>City: {x.city}</li>
+                          <li>State: {x.state}</li>
+                          <li>Country: {x.country}</li>
+                          <li>Zipcode: {x.zipcode}</li>
+                          </button>
+                      </ul>
+                  ))}
+                  </div>
+              </div>
                 <NewAddress newAddressInfo={newAddressInfo}/>
-            </>
+            </div>
         )
     }
 

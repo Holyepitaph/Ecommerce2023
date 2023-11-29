@@ -138,7 +138,7 @@ Content-Type: application/json
 Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiaWQiOjEsImlhdCI6MTcwMDEwOTY1Nn0.qGxTUcyswhnYXxpV5plp7vhf4Ic2dctHO8ntG6F88jY
 
 {
-    "name": "Test Item G",
+    "name": "Test Item h",
     "description": "Test Desc A",
     "price": 500,
     "cost": 200,

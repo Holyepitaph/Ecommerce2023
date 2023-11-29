@@ -17,29 +17,31 @@ export const LoginText = ({login}) =>{
           // setPassword('')
     }
     return(
-      <>
-      <form onSubmit={sendIt}>
+      <div className="w-screen px-4">
+      <form className="bg-gray-800 pl-4 flex flex-col gap-4 py-4 rounded-2xl" onSubmit={sendIt}>
         <div>
-          username
+          <span className="mr-4">Username:</span>
           <input 
+            className="pl-2"
             type='text'
             value={username}
             onChange={({target})=>setUsername(target.value)}
           />
         </div>
         <div>
-          password
+          <span className="mr-4">Password: </span>
           <input
+            className="pl-2"
             type="text"
             value={password}
             onChange={({target})=>setPassword(target.value)}
           />
         </div>
-        <button id="loginSubmit" type="submit">
-          login
+        <button className="bg-black w-11/12" id="loginSubmit" type="submit">
+          Login
         </button>
       </form>
-    </>
+    </div>
     )
   }
 

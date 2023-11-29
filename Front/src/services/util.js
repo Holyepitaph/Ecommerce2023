@@ -8,6 +8,9 @@ import {setTokenCartItem} from "./cartItem"
 import { setTokenAddress } from "./address"
 import { setTokenAddressOrder } from "./addressOrder"
 import { setTokenOrderItem } from "./orderItem"
+import { setTokenImages } from "./images"
+import { setTokenReview } from "./review"
+
 
 
 export const setToken = (newToken) =>{
@@ -21,4 +24,6 @@ export const setToken = (newToken) =>{
         setTokenAddress(newToken)
         setTokenAddressOrder(newToken)
         setTokenOrderItem(newToken)
+        setTokenImages(newToken)
+        setTokenReview(newToken)
 }

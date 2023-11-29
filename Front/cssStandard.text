@@ -1,0 +1,23 @@
+--box colors
+bg-gray-800
+rounded-2xl
+pl-4
+py-4
+className="bg-gray-800 pl-4 flex flex-col gap-2 py-4 rounded-2xl"
+
+--sub box 
+bg-gray-900
+rounded-2xl
+px-2
+mt-4
+className="bg-gray-900 rounded-2xl px-2 mt-4 mr-4"
+
+
+--button
+bg-black
+
+
+
+
+consider making text 
+text-blue-400???
