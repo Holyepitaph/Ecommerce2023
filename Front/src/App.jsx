@@ -114,19 +114,19 @@ const LogOut = () =>{
     setAddress(null)
   }
     return(
-      <div className="w-screen px-4 ">
-        <Link className="" to="/"><button className="w-full" onClick={()=>bye()}>Log Out</button></Link>
+      <div className=" w-screen px-4 ">
+        <Link className="" to="/"><button className="w-full bg-mainAlt  border-accentB border-4" onClick={()=>bye()}>Log Out</button></Link>
       </div>
     )
   }
 
-  const BlankMenu = () =>{
+  const BlankMenu = ({admin}) =>{
 
   return(
-    <div className="bg-gray-800 w-11/12 m-4 flex justify-around py-2 absolute top-0 rounded-2xl bg-opacity-80">
+    <div className="sm:w-[95%] sm:px-0  bg-main border-accentB border-4  text-back w-11/12 m-4 flex justify-around py-2 fixed top-0 rounded-2xl">
         <Link to='/'>Home</Link>
-              <div className="group"><div>Admin</div>
-                    <div className="absolute bg-gray-800 rounded-b-2xl px-4 pb-4 pt-2 -ml-3 hidden group-hover:block ">
+{!admin ? null : <div className="group"><div>Admin</div>
+                    <div className=" absolute bg-[#136161] border-4 border-t-0 border-[#a15a1f]  rounded-b-2xl px-4 pb-4 pt-2 -ml-3 hidden group-hover:block ">
                        <Link className="group-hover:block hidden" to='/admin/Item'>Item List</Link>
                        <div className="border-gray-700 border w-full my-1"/>
                        <Link className="group-hover:block hidden" to='/admin/Categories'>Categories</Link>
@@ -135,9 +135,9 @@ const LogOut = () =>{
                        <div className="border-gray-700 border w-full my-1"/>
                        <Link className="group-hover:block hidden" to='/admin/Users'>Users</Link>
                     </div>
-              </div>
+              </div>}
               <div className="group"><div>User</div>
-                    <div className="absolute bg-gray-800 rounded-b-2xl px-4 pb-4 pt-2 -ml-5 hidden group-hover:block">
+                    <div className="absolute bg-[#136161] rounded-b-2xl border-4 border-t-0 border-[#a15a1f] px-4 pb-4 pt-2 -ml-5 hidden group-hover:block">
                        <Link className="group-hover:block hidden" to='/user/Item'>Item List</Link>
                        <div className="border-gray-700 border w-full my-1"/>
                        <Link className="group-hover:block hidden" to='/user/Cart'>Cart</Link>
@@ -211,7 +211,7 @@ const LogOut = () =>{
   }
 
   const Main = () =>(
-      <div>
+      <div className="mt-20 sm:mt-0 sm:grid sm:grid-cols-2 sm:w-screen mb-6">
         {!user ? <LoginText login={login}/>: <LogOut/>}
         {user ? null : <NewUser/>}
       </div>
@@ -220,7 +220,7 @@ const LogOut = () =>{
   return (
     <>
       <Router>
-      <BlankMenu/>
+      <BlankMenu admin={admin}/>
         <Routes>
     {/* Admin Routes */}
           <Route path="/admin" element={admin ? <AdminPageMain user={user} admin={admin} items={items}/> : <Navigate replace to="/" />} />

@@ -21,10 +21,11 @@ const OrderStatusForm = ({order,newStatus}) =>{
 
   return(
     <>
-      <form onSubmit={changeStatus}>
+      <form className="my-4 bg-accentA border-accentB border-2 rounded-2xl pt-2 pl-4 mr-4" onSubmit={changeStatus}>
         <label>
           Change Status: 
-          <select          
+          <select    
+          className="w-10/12"      
           value={status}
           onChange={({ target }) => setStatus(target.value)}>
             <option value=""/>
@@ -36,7 +37,7 @@ const OrderStatusForm = ({order,newStatus}) =>{
             <option value='Order Canceled'>Order Canceled</option>
           </select>
         </label>
-        <button className="bg-black w-11/12 mr-4 my-4 active:translate-y-2 active:scale-y-90 focus:border-black" type="submit" >Change Order Status</button>
+        <button className="border-accentC border-2 bg-accentD w-11/12 mr-4 my-4 active:translate-y-2 active:scale-y-90 focus:border-black" type="submit" >Change Order Status</button>
       </form>
     </>
   )
@@ -83,13 +84,10 @@ export const AdminOrders = ({user,admin,items}) =>{
       }
     
       return(
-        <div className="w-screen px-4">
-        <div>
-          <AdminMenu/>
-        </div>
-        <div className="w-full grid grid-cols-2 gap-4 mt-4 shadow-xl">
+        <div className="w-full px-4 mt-20  mb-6">
+        <div className="sm:grid-cols-3 w-full grid grid-cols-1 gap-4 mt-4 shadow-xl">
           {order.sort((a,b)=>b.id-a.id).map(x=>(
-            <div className="bg-gray-800 rounded-2xl pl-4 py-4" key={x.id}>
+            <div className="bg-main border-accentB border-4 rounded-2xl pl-4 py-4" key={x.id}>
               <div>Name: {x.user.name}</div>
               <div>Username: {x.user.username}</div>
               <div>Status Date: {x.dateOfStatus}</div>
@@ -98,7 +96,7 @@ export const AdminOrders = ({user,admin,items}) =>{
               </div>
               <div>Cost: {x.totalCost}</div>
               <div>Sale: {x.totalSale}</div>
-              <div className="bg-gray-900 rounded-2xl px-2 mt-4 mr-4 shadow-2xl py-2">
+              <div className="bg-accentA border-accentB border-2 rounded-2xl px-2 mt-4 mr-4 shadow-2xl py-2">
                   <div>Address : </div>
                   {x.addresses.map(x=>(
                     <ul className="pl-4" key={x.id}>
@@ -111,7 +109,7 @@ export const AdminOrders = ({user,admin,items}) =>{
                     </ul>
                   ))}
               </div>
-              <div className="bg-gray-900 rounded-2xl px-2 mt-4 mr-4 shadow-2xl py-2">
+              <div className="bg-accentA border-accentB border-2 rounded-2xl px-2 mt-4 mr-4 shadow-2xl py-2">
                    <div>Items</div>
                    <ul >
                    {x.items.map(x=>(
@@ -159,54 +157,56 @@ export const AdminOrders = ({user,admin,items}) =>{
     
       if(!order){
         return(
-          <div className="w-screen px-4">
-          <div>
-            <AdminMenu/>
-          </div>
+          <div className="w-full px-4">
             Loading
           </div>
         )
       }
     
       return(
-        <>
-        <div>
-          <AdminMenu/>
-        </div>
-          <div>
-            <div>Status: {order[0].status}</div>
-            <div>Total Cost: {order[0].totalCost}</div>
-            <div>Total Sale: {order[0].totalSale}</div>
-            <div>Status Date: {order[0].dateOfStatus}</div>
-            <div>Username: {order[0].user.username}</div>
-            <div>Name: {order[0].user.name}</div>
-            <div>Email: {order[0].user.email}</div>
-            <div>Phone: {order[0].user.phone}</div>
-            <div>Address</div>
-            {order[0].addresses.map(x=>(
-              <ul key={x.id}>
-                <li>Address Type: {x.addressType}</li>
-                <li>Street: {x.street}</li>
-                <li>City: {x.city}</li>
-                <li>State: {x.state}</li>
-                <li>Country: {x.country}</li>
-                <li>Zipcode: {x.zipcode}</li>
-              </ul>
-            ))}
-            <div>Items</div>
-            {order[0].items.sort((a, b)=> a.id - b.id).map(x=>(
-              <ul key={x.id}>
-                <li>Name: {x.name}</li>
-                <li>Desc.: {x.description}</li>
-                <li>Cost: {x.cost}</li>
-                <li>Purchase Price: {x.orderItem.priceAtPurchase}</li>
-                <li>Quantity: {x.orderItem.quantity}</li>
-                <li>{x.image}</li>
-              </ul>
-            ))}
-            <Link to="/admin/Users"><button onClick={()=>delOrder(order[0].id)}>Delete Order</button></Link>
+        <div className="mt-20 w-screen px-4 mb-6">
+          <div className="bg-main border-accentB border-4 rounded-2xl pl-4">
+            <div className="flex flex-col gap-2 pt-2">
+                <div>Status: {order[0].status}</div>
+                <div>Total Cost: {order[0].totalCost}</div>
+                <div>Total Sale: {order[0].totalSale}</div>
+                <div>Status Date: {order[0].dateOfStatus}</div>
+                <div>Username: {order[0].user.username}</div>
+                <div>Name: {order[0].user.name}</div>
+                <div>Email: {order[0].user.email}</div>
+                <div>Phone: {order[0].user.phone}</div>
+            </div>
+            <div className="bg-accentA border-accentB border-2 rounded-2xl pt-2 px-2 mt-4 mr-4">
+                <div>Address</div>
+                {order[0].addresses.map(x=>(
+                  <ul className="pl-4" key={x.id}>
+                    <li>Address Type: {x.addressType}</li>
+                    <li>Street: {x.street}</li>
+                    <li>City: {x.city}</li>
+                    <li>State: {x.state}</li>
+                    <li>Country: {x.country}</li>
+                    <li>Zipcode: {x.zipcode}</li>
+                    <div className="border border-gray-800 w-11/12 my-4"/>
+                  </ul>
+                ))}
+            </div>
+            <div className="bg-accentA border-accentB border-2 rounded-2xl py-2 px-2 mt-4 mr-4">
+                <div>Items</div>
+                {order[0].items.sort((a, b)=> a.id - b.id).map(x=>(
+                  <ul className="pl-4" key={x.id}>
+                    <li>Name: {x.name}</li>
+                    <li>Desc.: {x.description}</li>
+                    <li>Cost: {x.cost}</li>
+                    <li>Purchase Price: {x.orderItem.priceAtPurchase}</li>
+                    <li>Quantity: {x.orderItem.quantity}</li>
+                    <li>{x.image}</li>
+                    <div className="border border-gray-800 w-11/12 my-4"/>
+                  </ul>
+                ))}
+            </div>
+            <Link to="/admin/Users"><button className="sm:w-[98%] sm:mx-0 w-[94%] mb-8 mt-4 border-accentB border-2" onClick={()=>delOrder(order[0].id)}>Delete Order</button></Link>
             <br/>
           </div>
-        </>
+        </div>
       )
     }

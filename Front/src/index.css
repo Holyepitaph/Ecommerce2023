@@ -8,8 +8,8 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: #d7c0a1;
+  background-color: #faebd7;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -19,7 +19,7 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #b69870;
   text-decoration: inherit;
 }
 
@@ -43,7 +43,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #044b4b;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -53,7 +53,7 @@ html{
 }
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
+    color: #97e8f7;
     background-color: #ffffff;
   }
   button {

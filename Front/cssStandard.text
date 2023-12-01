@@ -16,8 +16,27 @@ className="bg-gray-900 rounded-2xl px-2 mt-4 mr-4"
 --button
 bg-black
 
-
-
+bg-[#136161]  border-[#a15a1f] border-4
+bg-mainAlt border-accentB border-2
 
 consider making text 
 text-blue-400???
+
+
+
+New Color Set   
+BG White
+
+faebd7
+
+
+Main
+#136161
+
+Accent
+#1e366c
+#a15a1f
+#a1761f
+
+
+

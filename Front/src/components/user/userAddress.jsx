@@ -36,12 +36,13 @@ const NewAddress = ({ newAddressInfo}) =>{
       }
     
       return(
-        <div className="bg-gray-800 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
+        <div className="bg-main border-accentB border-4 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
            <form className="flex flex-col gap-3" onSubmit={change}>
            <div>New Address: </div>
            <label>
               <span className="mr-4">Address Type:</span>  
               <select          
+              className="sm:w-[12.25rem] w-[8.7rem]"
               value={addressType}
               onChange={({ target }) => setAddressType(target.value)}>
                 <option value=""/>
@@ -52,6 +53,7 @@ const NewAddress = ({ newAddressInfo}) =>{
             <div>
               <span className="mr-4">Street Line:</span>
               <input 
+                className="sm:w-[13.5rem] w-[16rem] mt-2"
                 type='text'
                 value={street}
                 onChange={({target})=>setStreet(target.value)}
@@ -60,6 +62,7 @@ const NewAddress = ({ newAddressInfo}) =>{
             <div>
               <span className="mr-4">City: </span> 
               <input 
+                className="sm:w-[14.5rem] ml-[1.7rem] w-[11rem]"
                 type='text'
                 value={city}
                 onChange={({target})=>setCity(target.value)}
@@ -68,6 +71,7 @@ const NewAddress = ({ newAddressInfo}) =>{
             <div>
               <span className="mr-4">State: </span>
               <input
+                className="sm:w-[14.5rem] ml-[1.22rem] w-[11rem]"
                 type="text"
                 value={state}
                 onChange={({target})=>setState(target.value)}
@@ -76,6 +80,7 @@ const NewAddress = ({ newAddressInfo}) =>{
             <div>
               <span className="mr-4">Country:</span>
               <input
+                className="sm:w-[14.5rem] ml-0.5 w-[11rem]"
                 type="text"
                 value={country}
                 onChange={({target})=>setCountry(target.value)}
@@ -84,12 +89,13 @@ const NewAddress = ({ newAddressInfo}) =>{
             <div>
               <span className="mr-4">Zipcode:</span> 
               <input
+                className="sm:w-[14.5rem] w-[11rem]"
                 type="number"
                 value={zipcode}
                 onChange={({target})=>setZipcode(target.value)}
               />
             </div>
-            <button className="bg-black w-11/12 ml-3 mt-3" type="submit">
+            <button className="bg-mainAlt border-accentB border-2 w-11/12 ml-1 mt-3" type="submit">
               Send
             </button>
           </form>
@@ -133,13 +139,21 @@ export const UserAddress = ({address,cart,update, newAddress}) => {
         const newAddressInfo = (info) =>{
             newAddress({...info})
         }
-    
-        return(
-            <div className="w-screen px-4 mt-4 flex flex-col gap-4">
-                <UserMenu/>
-              <div className="bg-gray-800 px-4 flex flex-col gap-2 py-4 rounded-2xl">
+        if(address.length == 0){
+          return(
+            <div className="sm:grid-cols-2 w-full px-4 mt-20 grid grid-cols-1 gap-4">
+              <div className="bg-main border-accentB border-4 px-4 flex flex-col gap-2 py-4 rounded-2xl">
+                <div>Please Create an Address</div>
+              </div>
+              <NewAddress newAddressInfo={newAddressInfo}/>
+            </div>
+          )
+        } else{
+          return(
+            <div className="sm:grid-cols-2 w-full px-4 mt-20 grid grid-cols-1 gap-4">
+              <div className="bg-main border-accentB border-4 px-4 flex flex-col gap-2 py-4 rounded-2xl">
                   <div>Select Address: </div>
-                  <div className="w-full grid grid-cols-3 gap-4">
+                  <div className="w-full grid grid-cols-2 gap-4">
                   {address.map(x=>(
                       <ul key={x.id}>
                           <button onClick={()=>createOrder(x.id)}>
@@ -154,9 +168,12 @@ export const UserAddress = ({address,cart,update, newAddress}) => {
                   ))}
                   </div>
               </div>
-                <NewAddress newAddressInfo={newAddressInfo}/>
+                
             </div>
         )
+        }
+    
+
     }
 
 }

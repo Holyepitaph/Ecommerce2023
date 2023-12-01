@@ -6,7 +6,7 @@ import cartItemServices from "../../services/cartItem"
 import { ImagesViewer } from "../image"
 import { Ratings } from "../ratings"
 
-const ItemToCart = ({item, added, change})=>{
+const ItemToCart = ({item, added, change, changeA})=>{
   const [quantity, setQuantity] = useState(0)
   const navigate = useNavigate()
 
@@ -21,7 +21,7 @@ const ItemToCart = ({item, added, change})=>{
   return(
     <div className={change}>
         <div >
-          <span className="mr-4">Quantity: </span>
+          <span >Quantity: </span>
           <input type="number"
           className="w-8 text-center"
            min={0} 
@@ -31,7 +31,7 @@ const ItemToCart = ({item, added, change})=>{
 
           </input>
         </div>
-        <button className="w-11/12 text-sm" onClick={()=>addToCart(item.id)}>Add To Cart</button>
+        <button className={changeA} onClick={()=>addToCart(item.id)}>Add To Cart</button>
     </div>
   )
 }
@@ -47,27 +47,25 @@ export const UserItems = ({items,addedToCart}) =>{
     }
 
     return(
-    <>
-    <div className="mt-4">
-      <UserMenu/>
-    </div>
-    <div className="grid grid-cols-3 w-screen gap-4 px-4 mt-4">
+    <div className="w-full px-4 mt-20 mb-4">
+
+    <div className="sm:grid-cols-3 grid grid-cols-2 gap-4 mt-4">
     {items.map(x=>(
-      <div className="bg-gray-800 pl-4 flex flex-col gap-2 py-4 rounded-2xl" key={x.id}>
+      <div className="bg-main border-accentB border-4 pl-4 flex flex-col gap-2 py-4 rounded-2xl" key={x.id}>
         <Link to={`/user/Item/${x.id}`} >
-          <ImagesViewer change={"w-11/12 mb-4 mr-2"} info={x.image}/>
+          <ImagesViewer change={"w-11/12 mb-4 mr-2 rounded-xl"} info={x.image}/>
           <div>Name: {x.name}</div>
           <div>Description: {x.description}</div>
           <div>Stock: {x.stock}</div>
           <div>Price: {x.price}</div>
-          <div className="bg-gray-900 rounded-2xl px-2 mt-4 mr-2 py-2">
+          <div className="bg-accentA border-accentB border-2 rounded-2xl px-2 mt-4 mr-2 py-2">
               <div>Categories:</div>
               <ul className="ml-2">
               {x.categories.map(x=><li key={x.id}>{x.categoryName}</li>)}
               </ul>
           </div>
-          <Ratings change={"bg-gray-900 rounded-2xl px-2 mt-4 mr-2 py-2"} info={x.reviews}/>
-          <div className="bg-gray-900 rounded-2xl px-2 mt-4 mr-2 py-2">
+          <Ratings change={"bg-accentA border-accentB border-2 rounded-2xl px-2 mt-4 mr-2 py-2"} info={x.reviews}/>
+          <div className="bg-accentA border-accentB border-2 rounded-2xl px-2 mt-4 mr-2 py-2">
               <div>Reviews:</div>
               <ul className="ml-2"> 
               {x.reviews.map(x=><li key={x.id}>{x.review}</li>)}
@@ -75,14 +73,16 @@ export const UserItems = ({items,addedToCart}) =>{
               </ul>
           </div>
         </Link>
-          <ItemToCart change={"flex flex-col gap-3 mt-4 pr-2"} item={x} added={addToCart}/>
+          <ItemToCart change={"flex flex-col gap-3 mt-4 pr-2"} 
+          changeA={"w-11/12 text-sm bg-mainAlt border-accentB border-2"} 
+          item={x} added={addToCart}/>
         <br/>
         <br/>
         <br/>
       </div>
     ))}
     </div>
-    </>
+    </div>
   )
   }  
 
@@ -106,19 +106,19 @@ export const UserItems = ({items,addedToCart}) =>{
         <div className={change}>
            <form onSubmit={changed} className="flex flex-col gap-4 ">
            <div className="text-2xl">Create Review: </div>
-            <div>
+            <div className="sm:gap-4 flex flex-col">
               <span className="mr-4">Review:</span>
-              <textarea rows={4} cols={50} value={review} onChange={({target})=>setReview(target.value)}/>
+              <textarea className="sm:w-full w-64" rows={4} cols={50} value={review} onChange={({target})=>setReview(target.value)}/>
             </div>
-            <div>
-              <span className="mr-4">Rating: </span> 
+            <div className="sm:text-center">
+              <span className="mr-2">Rating: </span> 
               <input type="radio" value={rating} onClick={()=>setRating(1)} name="rating"/> 1
-              <input type="radio" value={rating} onClick={()=>setRating(2)} name="rating"/> 2
-              <input type="radio" value={rating} onClick={()=>setRating(3)} name="rating"/> 3
-              <input type="radio" value={rating} onClick={()=>setRating(4)} name="rating"/> 4
-              <input type="radio" value={rating} onClick={()=>setRating(5)} name="rating"/> 5
+              <input type="radio" className="mx-2" value={rating} onClick={()=>setRating(2)} name="rating"/> 2
+              <input type="radio" className="mx-2" value={rating} onClick={()=>setRating(3)} name="rating"/> 3
+              <input type="radio" className="mx-2" value={rating} onClick={()=>setRating(4)} name="rating"/> 4
+              <input type="radio" className="mx-2" value={rating} onClick={()=>setRating(5)} name="rating"/> 5
             </div>
-            <button className="bg-black" type="submit">
+            <button className="bg-mainAlt border-accentB border-2" type="submit">
               Send
             </button>
           </form>
@@ -151,17 +151,15 @@ export const UserSingleItem = ({items,addedToCart, reloadItem}) =>{
   const reducedFirst = single[0].reviews.map(x=>x.rating)
   const reduced = reducedFirst.reduce((x,i)=>x+i, 0)
   return(
-    <div className="w-screen px-4">
-    <div>
-      <UserMenu/>
-    </div>
+    <div className="w-full mt-20 px-4  mb-6">
       <div className="w-full grid grid-cols-2 gap-4">
-        <div className="h-full bg-gray-800 rounded-2xl flex flex-col justify-around items-center gap-4 py-4">
+        <div className="h-full bg-main border-accentB border-4 rounded-2xl flex flex-col justify-around items-center gap-4 py-4">
            <ImagesViewer change={"w-11/12 rounded-2xl "} info={single[0].image}/>
-           <ItemToCart change={"bg-blue-900 rounded-2xl w-11/12 p-4 flex flex-col gap-4"}
+           <ItemToCart change={"bg-accentA border-accentB border-2 rounded-2xl w-11/12 p-4 flex flex-col gap-4"}
+            changeA={"w-11/12 text-sm bg-accentD border-accentB border-2"}
             item={single[0]} added={addToCart}/>
         </div>
-        <div className="w-full bg-gray-800 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
+        <div className="w-full bg-main border-accentB border-4 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
             <div>Name: {single[0].name}</div>
             <div>Description: {single[0].description}</div>
             <div>Stock: {single[0].stock}</div>
@@ -170,15 +168,15 @@ export const UserSingleItem = ({items,addedToCart, reloadItem}) =>{
             <ul> 
             {single[0].categories.map(x=>(<li key={x.id}>{x.categoryName} 
             </li>))}</ul>
+            <div>Rating: {reduced/reducedFirst.length}</div>
             <div>
                   <div>Reviews:</div>
                   <ul> 
-                  <li>Average Rating: {reduced/reducedFirst.length}</li>
                   {single[0].reviews.map(x=>(<li key={x.id}>{x.review}</li>))}
                   </ul>
             </div>
         </div>
-            <NewReview change={"bg-gray-800 col-span-2 rounded-2xl p-4"}
+            <NewReview change={"bg-main border-accentB border-4 col-span-2 rounded-2xl p-4"}
              newReviewInfo={addReviewMiddleWare}/>
       </div>
     </div>

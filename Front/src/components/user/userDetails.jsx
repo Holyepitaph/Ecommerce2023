@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { UserMenu } from "./userMenu"
 import userServices from "../../services/user"
+import { Link } from "react-router-dom"
 
 const EditUser = ({user, update}) =>{
     const [email, setEmail] = useState("")
@@ -24,34 +25,37 @@ const EditUser = ({user, update}) =>{
       }
     
       return(
-        <div className="bg-gray-800 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
+        <div className="bg-main border-accentB border-4 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
            <form className="flex flex-col gap-4" onSubmit={change}>
            <div className="text-xl">Change Information</div>
             <div>
-              <span className="mr-4">Email: </span>
+              <span className="mr-[4.55rem]">Email: </span>
               <input 
+                className="sm:w-[11.5rem] w-[7.5rem]"
                 type='text'
                 value={email}
                 onChange={({target})=>setEmail(target.value)}
               />
             </div>
             <div>
-              <span className="mr-4">Phone Number:</span> 
+              <span className="mr-2">Phone Number:</span> 
               <input 
+                className="sm:w-[11.5rem] w-[7.5rem] pl-1"
                 type='text'
                 value={phone}
                 onChange={({target})=>setPhone(target.value)}
               />
             </div>
             <div>
-              <span className="mr-4">Password: </span>
+              <span className="mr-11">Password: </span>
               <input
+                className="sm:w-[11.5rem] w-[7.5rem]"
                 type="text"
                 value={password}
                 onChange={({target})=>setPassword(target.value)}
               />
             </div>
-            <button className="bg-black w-11/12 ml-3 mt-2" type="submit">
+            <button className="bg-mainAlt border-accentB border-2 w-11/12 mt-2" type="submit">
               Change
             </button>
           </form>
@@ -61,6 +65,7 @@ const EditUser = ({user, update}) =>{
 
 export const UserDetails = ({user}) =>{
 const [total, setTotal] = useState(null)
+
 
     useEffect(()=>{
         const fetchTotal = async () =>{
@@ -84,20 +89,19 @@ const [total, setTotal] = useState(null)
         )
       }
     return(
-        <div className="w-screen px-4">
-            <UserMenu/>
-            <div className="flex flex-col gap-4">
-              <div className="bg-gray-800 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
+        <div className="w-screen mt-20 px-4 mb-6">
+            <div className="sm:grid-cols-2 grid grid-cols-1 gap-4">
+              <div className="bg-main  border-accentB border-4 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
                   <div>Username: {total.username}</div>
                   <div>Name: {total.name}</div>
                   <div>Email: {total.email}</div>
                   <div>Phone: {total.phone}</div>
               </div>
               <EditUser update={update} user={total}/>
-              <div className="bg-gray-800 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
+              <div className="bg-main border-accentB border-4 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
                   <div>Addresses: </div>
                   {total.addresses === undefined ? "None on File": total.addresses.map(x=>(
-                        <ul className="bg-gray-900 rounded-2xl px-2 mt-4 mr-4" key={x.id}>
+                        <ul className="bg-accentA border-accentB border-2 rounded-2xl py-2 px-4 mt-4 mr-4" key={x.id}>
                             <li>Address Type: {x.addressType}</li>
                             <li>Street: {x.street}</li>
                             <li>City: {x.city}</li>
@@ -107,13 +111,15 @@ const [total, setTotal] = useState(null)
                         </ul>
                     ))}
               </div>
-              <div className="bg-gray-800 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
+              <div className="bg-main border-accentB border-4 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
                   <div>Orders:</div>
                   {total.orders === undefined ? "None on File" : total.orders.map(x=>(
-                      <ul className="bg-gray-900 rounded-2xl px-2 mt-4 mr-4" key={x.id}>
+                      <ul className="bg-accentA border-accentB border-2 rounded-2xl px-4 py-2 mt-4 mr-4" key={x.id}>
+                        <Link to={`/user/Orders/${x.id}`}>    
                           <li>Status: {x.status}</li>
                           <li>Date Ordered: {x.dateOfStatus}</li>
                           <li>Sale Total: {x.totalSale}</li>
+                        </Link>                      
                       </ul>
                   ))}
               </div>

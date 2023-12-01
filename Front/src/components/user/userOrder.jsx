@@ -8,23 +8,30 @@ export const UserSingleOrder = ({orders})=>{
     const id = useParams().orderId
     const single = orders.filter(x=>x.id == id)
 
-
+    if(single == 0){
+        return(
+            <div className="mt-4 w-full px-4">
+                <div className="bg-main border-accentB border-4 px-4 py-4 rounded-2xl mt-4">
+                    Order is Empty. Maybe Buy Some Stuff ?
+                </div>
+            </div>
+        )
+    }
   
     return(
-        <div className="w-screen px-4 mt-4">
-            <UserMenu/>
+        <div className="sm:w-screen w-full px-4 mt-20">
             <div>
             {single.map(x=>(
-                <ul className="flex flex-col gap-4 mt-4" key={x.id}>
-                <div className="bg-gray-800 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
+                <ul className="sm:grid-cols-2 grid grid-cols-1 gap-4 mt-4" key={x.id}>
+                <div className="bg-main border-accentB border-4 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
                     <li>Delivery Status: {x.status}</li>
                     <li>Total Sale: {x.totalSale}</li>
                     <li>Order Date: {x.dateOfStatus}</li>
                 </div>
-                <div className="bg-gray-800 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
+                <div className="bg-main border-accentB border-4 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
                 <div>Address: </div>
                     {x.addresses.map(x=>(
-                        <ul className="bg-gray-900 rounded-2xl px-4 mt-4 mr-4 pt-4"
+                        <ul className="bg-accentA border-accentB border-2 rounded-2xl px-4 mt-4 mr-4 pt-4"
  key={x.id}>
                             <li>Address Type: {x.addressType}</li>
                             <li>Street: {x.street}</li>
@@ -36,13 +43,14 @@ export const UserSingleOrder = ({orders})=>{
                         </ul>
                     ))}
                 </div>
-                <div className="bg-gray-800 pl-4 flex flex-col gap-4 py-4 rounded-2xl">
+                <div className="sm:col-span-2 bg-main border-accentB border-4 pl-4 flex flex-col gap-4 py-4 rounded-2xl">
                     <div>Items: </div>
+                    <div className="sm:grid sm:grid-cols-3">
                     {x.items.map(x=>(
                         <ul 
-                          className="bg-gray-900 rounded-2xl flex justify-around items-center py-6 pl-6 mr-4"
+                          className="bg-accentA border-accentB border-2 rounded-2xl flex flex-col justify-around gap-4 items-center pt-8  mr-4"
                           key={x.id}>
-                            <div className="border border-black rounded-2xl  p-4 bg-gray-600">
+                            <div className="border-accentB border-2 rounded-2xl  p-4 bg-accentD">
                                 <li>Name: {x.name}</li>
                                 <li>Description: {x.description}</li>
                                 <li>Purchase Price: {x.orderItem.priceAtPurchase}</li>
@@ -52,6 +60,7 @@ export const UserSingleOrder = ({orders})=>{
                             <br/>
                         </ul>
                     ))}
+                    </div>
                 </div>
                 </ul>
             ))}
@@ -83,7 +92,7 @@ const Cancel = ({info,cancelOrder}) =>{
     return(
         <>
                     {error}
-                    <button className="w-11/12 mt-2" onClick={()=>test(info)}>Cancel Order</button>
+                    <button className="w-11/12 mt-2 border-accentB border-2" onClick={()=>test(info)}>Cancel Order</button>
         </>
 
     )
@@ -96,15 +105,14 @@ export const UserOrder = ({orders, deleteOrder})=>{
     }
 
     return(
-        <div className="w-screen px-4">
-            <UserMenu/>
-            <div className="w-full grid grid-cols-2 gap-4">
+        <div className="w-full px-4 mt-20">
+            <div className="sm:grid-cols-3 w-full grid grid-cols-1 gap-4">
             {orders.sort((a,b)=>b.id - a.id).map(x=>(
-                <ul  className="bg-gray-800 pl-4 flex flex-col gap-2 py-4 rounded-2xl" key={x.id}>
+                <ul  className="bg-main border-accentB border-4 pl-4 flex flex-col gap-2 py-4 rounded-2xl" key={x.id}>
                     <li>Delivery Status: {x.status}</li>
                     <li>Total Sale: {x.totalSale}</li>
                     <li>Order Date: {x.dateOfStatus}</li>
-                    <div className="bg-gray-900 rounded-2xl px-2 mt-4 mr-4">
+                    <div className="bg-accentA border-accentB border-2 rounded-2xl pt-2 px-2 mt-4 mr-4">
                         <div>Addresses: </div>
                         {x.addresses.map(x=>(
                             <ul className="ml-2" key={x.id}>
@@ -118,7 +126,7 @@ export const UserOrder = ({orders, deleteOrder})=>{
                             </ul>
                         ))}
                     </div>
-                    <div className="bg-gray-900 rounded-2xl px-2 mt-4 mr-4">
+                    <div className="bg-accentA border-accentB border-2 rounded-2xl pt-2 px-2 mt-4 mr-4">
                         <div>Items: </div>
                         {x.items.map(x=>(
                             <ul className="ml-2" key={x.id}>

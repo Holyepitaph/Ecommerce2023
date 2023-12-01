@@ -41,8 +41,8 @@ const regUser = async (e) =>{
 }
 
     return(
-        <div className=" mt-4 w-screen px-4">
-            <form className="bg-gray-800 pl-4 flex flex-col  py-4 rounded-2xl" onSubmit={regUser}>
+        <div className=" mt-4 w-screen sm:w-full sm:mt-0 px-4">
+            <form className="bg-main border-accentB border-4 pl-4 flex flex-col  py-4 rounded-2xl" onSubmit={regUser}>
             <div>{error}</div>
             <div className="text-2xl mb-4">New User: </div>
                 <span>Username: </span>
@@ -64,14 +64,14 @@ const regUser = async (e) =>{
                     type="password"
                     onChange={({ target }) => setPassword(target.value)}
                   /><br/>
-                <span>Password: </span>
+                <span>Repeat Password: </span>
                 <input
                     className="w-11/12"
                     value={check}
                     type="password"
                     onChange={({ target }) => setCheck(target.value)}
                   /><br/>
-                <button className="bg-black w-11/12" type="submit">save</button>
+                <button className="bg-mainAlt border-accentB border-2 w-11/12" type="submit">save</button>
             </form>  
         </div>
     )

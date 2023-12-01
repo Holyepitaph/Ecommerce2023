@@ -17,8 +17,8 @@ export const LoginText = ({login}) =>{
           // setPassword('')
     }
     return(
-      <div className="w-screen px-4">
-      <form className="bg-gray-800 pl-4 flex flex-col gap-4 py-4 rounded-2xl" onSubmit={sendIt}>
+      <div className="w-full px-4">
+      <form className="bg-main border-accentB border-4 pl-4 flex flex-col gap-4 py-4 rounded-2xl" onSubmit={sendIt}>
         <div>
           <span className="mr-4">Username:</span>
           <input 
@@ -37,7 +37,7 @@ export const LoginText = ({login}) =>{
             onChange={({target})=>setPassword(target.value)}
           />
         </div>
-        <button className="bg-black w-11/12" id="loginSubmit" type="submit">
+        <button className="bg-mainAlt border-accentB border-2 w-11/12" id="loginSubmit" type="submit">
           Login
         </button>
       </form>

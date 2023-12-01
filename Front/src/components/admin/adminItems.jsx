@@ -13,14 +13,11 @@ export const AdminItems = ({user,admin,items}) =>{
   
 
     return(
-    <div className="w-screen px-4">
-    <div>
-      <AdminMenu/>
-    </div>
-    <Link to="/admin/NewItem"><button className="w-full mt-4">Create New Item</button></Link>
-    <div className="grid grid-cols-3 gap-4 w-full py-4">
+    <div className="w-full px-4 mt-16">
+    <Link to="/admin/NewItem"><button className="w-full mt-4 border-accentB border-4">Create New Item</button></Link>
+    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 w-full py-4">
     {items.map(x=>(
-      <Link className=" bg-gray-800 rounded-2xl" to={`/admin/Item/${x.id}`} key={x.id}>
+      <Link className=" bg-main border-accentB border-4 rounded-2xl" to={`/admin/Item/${x.id}`} key={x.id}>
         <ImagesViewer change={"w-full rounded-2xl"} info={x.image}/>
         <div className="px-4 py-4">
           <div>ID: {x.id}</div> 
@@ -31,14 +28,14 @@ export const AdminItems = ({user,admin,items}) =>{
           <div>Highest Price: {x.highestPrice}</div>
           <div>Lowest Price: {x.lowestPrice}</div>
           <div>Stock: {x.stock}</div>
-          <div className="bg-gray-900 rounded-2xl px-2 mt-4 py-2">
+          <div className="bg-accentA border-accentB border-2 rounded-2xl px-2 mt-4 py-2">
               <div>Categories:</div>
               <ul>
               {x.categories.map(x=><li className="px-2" key={x.id}>{x.categoryName}</li>)}
               </ul>
           </div>
-          <Ratings change={"bg-gray-900 rounded-2xl px-2 mt-4 py-2"} info={x.reviews}/>
-          <div className="bg-gray-900 rounded-2xl px-2 mt-4 py-2">
+          <Ratings change={"bg-accentA border-accentB border-2 rounded-2xl px-2 mt-4 py-2"} info={x.reviews}/>
+          <div className="bg-accentA border-accentB border-2 rounded-2xl px-2 mt-4 py-2">
                 <div>Reviews:</div>
                 <ul> 
                 {x.reviews.map(x=><li className="pl-2" key={x.id}>{x.review}</li>)}
@@ -89,7 +86,7 @@ export const AdminItems = ({user,admin,items}) =>{
     }
 
     return(
-      <div>
+      <div className="row-span-2">
       <form className="mt-3" onSubmit={changeCategory}>
           <label >
             Change Categories:  
@@ -100,7 +97,7 @@ export const AdminItems = ({user,admin,items}) =>{
               {categories.map(x=><option key={x.id} value={x.id}>{x.categoryName}</option>)}
             </select>
           </label>
-          <button className="w-10/12 bg-black mx-5 my-3" type="submit">Send</button>
+          <button className="w-10/12 bg-mainAlt border-accentB border-2 my-3" type="submit">Send</button>
         </form>
       </div>
     )
@@ -141,13 +138,13 @@ export const AdminItems = ({user,admin,items}) =>{
       }
     
       return(
-        <div className="w-screen">
-           <form className=" bg-gray-800 rounded-2xl flex flex-col gap-3 pl-4 py-4" onSubmit={change}>
+        <div className="w-full mb-6">
+           <form className="border-accentB border-4 bg-main rounded-2xl flex flex-col gap-3 pl-4 py-4" onSubmit={change}>
            <div>Change Information</div>
             <div>
               Cost: 
               <input 
-                className="ml-2"
+                className="ml-2 w-[13.6rem]"
                 type='number'
                 value={cost}
                 onChange={({target})=>setCost(target.value)}
@@ -156,7 +153,7 @@ export const AdminItems = ({user,admin,items}) =>{
             <div>
               Description: 
               <input 
-                className="ml-2"
+                className="ml-2 w-[10.55rem]"
                 type='text'
                 value={description}
                 onChange={({target})=>setDescription(target.value)}
@@ -165,7 +162,7 @@ export const AdminItems = ({user,admin,items}) =>{
             <div>
               Highest Price: 
               <input
-                className="ml-2"
+                className="ml-2 w-[9.8rem]"
                 type="number"
                 value={highestPrice}
                 onChange={({target})=>setHighestPrice(target.value)}
@@ -174,7 +171,7 @@ export const AdminItems = ({user,admin,items}) =>{
             <div>
               Lowest Price: 
               <input
-                className="ml-2"
+                className="ml-2 w-[10.1rem]"
                 type="number"
                 value={lowestPrice}
                 onChange={({target})=>setLowestPrice(target.value)}
@@ -183,7 +180,7 @@ export const AdminItems = ({user,admin,items}) =>{
             <div>
               Name: 
               <input
-                className="ml-2"
+                className="ml-2 w-[13rem]"
                 type="text"
                 value={name}
                 onChange={({target})=>setName(target.value)}
@@ -192,7 +189,7 @@ export const AdminItems = ({user,admin,items}) =>{
             <div>
               Price: 
               <input
-                className="ml-2"
+                className="ml-2 w-[13.5rem]"
                 type="number"
                 value={price}
                 onChange={({target})=>setPrice(target.value)}
@@ -201,13 +198,13 @@ export const AdminItems = ({user,admin,items}) =>{
             <div>
               Stock: 
               <input
-                className="ml-2"
+                className="ml-2 w-[13.2rem]"
                 type="number"
                 value={stock}
                 onChange={({target})=>setStock(target.value)}
               />
             </div>
-            <button className="bg-black w-11/12 mx-2" type="submit">
+            <button className=" w-11/12 mx-2 bg-mainAlt border-accentB border-2" type="submit">
               Send
             </button>
           </form>
@@ -262,14 +259,13 @@ export const AdminSingleItem = ({user,admin,items, updateItem, updateCat, delCat
   
     return(
       <>
-      <div>
-        <AdminMenu/>
-      </div>
-        <div className="w-screen px-4">
-          <button className="w-full mt-2" onClick={()=>delItem(single[0].id)}>Remove Item</button>
+        <div className="w-full px-4 text-back mt-16">
+          <button className="w-full mt-2 border-accentB border-4" onClick={()=>delItem(single[0].id)}>Remove Item</button>
           <div className="grid grid-cols-2 gap-4 py-4">
-            <ImagesViewer change={"w-full h-full rounded-2xl"} info={single[0].image}/>
-            <div className="bg-gray-800 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
+            <div className="bg-main border-accentB border-4 flex items-center rounded-2xl">
+                <ImagesViewer change={"w-full rounded-2xl"} info={single[0].image}/>
+            </div>
+            <div className="bg-main border-accentB border-4 pl-4 flex flex-col row-span-2 gap-2 py-4 rounded-2xl">
                 <div>ID: {single[0].id}</div>
                 <div>Name: {single[0].name}</div>
                 <div>Description: {single[0].description}</div>
@@ -280,21 +276,22 @@ export const AdminSingleItem = ({user,admin,items, updateItem, updateCat, delCat
                 <div>Stock: {single[0].stock}</div>
                 <Ratings info={single[0].reviews}/>
             </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-              <div className="bg-gray-800 rounded-2xl pl-4 py-4">
+            <div className="bg-main border-accentB border-4 rounded-2xl pl-4 py-4">
                 <div>Categories:</div>
                 <ul> 
                 {single[0].categories.map(x=>(<li className="flex justify-around items-center py-2" key={x.id}>{x.categoryName} 
-                <button onClick={()=>deleteCategoryInfo(x.id)}>Delete</button>
+                <button className="mr-2 border-accentB border-2" onClick={()=>deleteCategoryInfo(x.id)}>Delete</button>
                 </li>))}
                 </ul>
-                <EditCategories item={single[0]} catInfo={updateCategoryInfo}/>
-              </div>
-              <div className="bg-gray-800 rounded-2xl pl-4 py-4">Reviews: {single[0].reviews.map(x=>x.review)}</div>
+              <EditCategories item={single[0]} catInfo={updateCategoryInfo}/>
+            </div>
+            <div className="bg-main border-accentB border-4 col-span-2 rounded-2xl pl-4 py-4">
+                <div>Reviews:</div>
+                <ul className="pl-4">
+                {single[0].reviews.map(x=><li key={x.id}>{x.review}</li>)}
+                </ul>
+            </div>
           </div>
-
-          <br/>
           <EditItem item={single[0]} itemInfo={updateItemInfo}/>
         </div>
       </>

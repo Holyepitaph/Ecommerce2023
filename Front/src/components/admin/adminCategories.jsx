@@ -18,26 +18,28 @@ import categoriesService from "../../services/categories"
     }
 
     return(
-      <div className="bg-gray-800 rounded-2xl mt-4 pl-4 py-4">
-      <h2 className="text-2xl text-blue-400">New Category</h2>
-      <form className="flex flex-col mt-4" onSubmit={sendCategory}>
-          <div>
-              <span>Title: </span>
+      <div className="bg-main border-accentB border-4 rounded-2xl mt-4 pl-4 py-4">
+      <h2 className="text-2xl ">New Category</h2>
+      <form className="sm:flex-row sm:justify-around sm:items-center flex flex-col mt-4" onSubmit={sendCategory}>
+          <div >
+              <span>Name: </span>
               <input
+                className="ml-2 w-[13rem]"
                 value={name}
                 onChange={({ target }) => setName(target.value)}
               />
           </div>
           <br/>
           <div>
-              <span>Author: </span>
+              <span>Description: </span>
               <input
+              className="ml-2 w-[11.8rem]"
               value={description}
               onChange={({ target }) => setDescription(target.value)}
               />
           </div>
           <br/>
-          <button className="bg-black w-11/12 mx-4" type="submit">save</button>
+          <button className="bg-mainAlt border-accentB border-2 mr-4" type="submit">Save</button>
       </form>  
     </div>
 
@@ -77,16 +79,13 @@ export const AdminCategories = ({user,admin,items}) =>{
       )
     }
     return(
-      <div className="w-screen px-4">
-      <div>
-        <AdminMenu/>
-      </div>
-      <div className="w-full grid grid-cols-3 gap-4 mt-4">
+      <div className="sm:mt-20 sm:w-screen w-full px-4 mt-16 mb-6">
+      <div className=" grid grid-cols-2 sm:grid-cols-3 gap-4 mt-4">
         {categories.map(x=>(
-          <div className="bg-gray-800 rounded-2xl pl-4 py-4" key={x.id}>
+          <div className="bg-main border-accentB border-4 rounded-2xl pl-4 py-4 pr-2" key={x.id}>
             <div>Name: {x.categoryName}</div>
             <div>Description: {x.categoryDescription}</div>
-            <div className="bg-gray-900 rounded-2xl px-2 mr-4 mt-4 py-2">
+            <div className="bg-accentA border-accentB border-2 rounded-2xl px-2 mr-4 mt-4 py-2">
                 <div>Items: </div>
                 <ul>
                   {x.items.map(x=><li className="ml-4" key={x.id}> {x.name}</li>)}
