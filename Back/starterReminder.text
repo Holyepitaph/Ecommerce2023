@@ -1,0 +1,4 @@
+
+
+
+pm2 start 'DOTENV_KEY='dotenv://:key_1234@dotenv.org/vault/.env.vault?environment=production' node index.js'

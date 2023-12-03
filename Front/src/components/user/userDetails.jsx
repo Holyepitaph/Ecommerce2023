@@ -55,7 +55,7 @@ const EditUser = ({user, update}) =>{
                 onChange={({target})=>setPassword(target.value)}
               />
             </div>
-            <button className="bg-mainAlt border-accentB border-2 w-11/12 mt-2" type="submit">
+            <button className="bg-mainAlt border-accentB border-2 w-11/12 mt-2 text-textB" type="submit">
               Change
             </button>
           </form>
@@ -89,8 +89,8 @@ const [total, setTotal] = useState(null)
         )
       }
     return(
-        <div className="w-screen mt-20 px-4 mb-6">
-            <div className="sm:grid-cols-2 grid grid-cols-1 gap-4">
+        <div className="sm:w-[calc(100vw-1rem)] w-screen mt-20 px-4 mb-6">
+            <div className="sm:grid-cols-2 grid grid-cols-1 gap-4 text-textA">
               <div className="bg-main  border-accentB border-4 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
                   <div>Username: {total.username}</div>
                   <div>Name: {total.name}</div>
@@ -101,7 +101,7 @@ const [total, setTotal] = useState(null)
               <div className="bg-main border-accentB border-4 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
                   <div>Addresses: </div>
                   {total.addresses === undefined ? "None on File": total.addresses.map(x=>(
-                        <ul className="bg-accentA border-accentB border-2 rounded-2xl py-2 px-4 mt-4 mr-4" key={x.id}>
+                        <ul className="bg-accentA border-accentB border-2 rounded-2xl py-2 px-4 mt-4 mr-4 text-textB" key={x.id}>
                             <li>Address Type: {x.addressType}</li>
                             <li>Street: {x.street}</li>
                             <li>City: {x.city}</li>
@@ -114,7 +114,7 @@ const [total, setTotal] = useState(null)
               <div className="bg-main border-accentB border-4 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
                   <div>Orders:</div>
                   {total.orders === undefined ? "None on File" : total.orders.map(x=>(
-                      <ul className="bg-accentA border-accentB border-2 rounded-2xl px-4 py-2 mt-4 mr-4" key={x.id}>
+                      <ul className="bg-accentA border-accentB border-2 rounded-2xl px-4 py-2 mt-4 mr-4 text-textB" key={x.id}>
                         <Link to={`/user/Orders/${x.id}`}>    
                           <li>Status: {x.status}</li>
                           <li>Date Ordered: {x.dateOfStatus}</li>

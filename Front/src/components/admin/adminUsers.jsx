@@ -22,7 +22,7 @@ const [password, setPassword] = useState("")
   }
 
   return(
-    <div className="bg-accentA border-accentB border-2 rounded-2xl mr-4 mt-4 py-4 pl-2">
+    <div className="bg-accentA border-accentB border-2 text-textB rounded-2xl mr-4 mt-4 py-4 pl-2">
        <form className="flex flex-col gap-2 pl-2" onSubmit={change}>
        <div>Change Information</div>
         <div>
@@ -121,20 +121,20 @@ export const AdminUsers = ({user,admin,items,orders}) =>{
       )
     }
     return(
-      <div className="w-full px-4 mt-20">
+      <div className="w-full px-4 mt-20 text-textA">
       <div className="sm:grid-cols-3 grid grid-cols-1 gap-4 mt-4">
         {userTotal.map(x=>(
-          <div className="bg-main pl-4 flex flex-col gap-2 py-4 rounded-2xl" key={x.id}>
+          <div className="bg-main pl-4 border-accentB border-4 flex flex-col gap-2 py-4 rounded-2xl" key={x.id}>
             <div>Username: {x.username}</div>
             <div>Name: {x.name}</div>
             <div>Phone: {x.phone ? x.phone : "Missing"}</div>
             <div>Email: {x.email ? x.email : "Missing"}</div>
             <div>Created: {x.created}</div>
-            <div className="w-11/12 p-4 items-center justify-around flex flex-col gap-4 bg-accentA border-accentB border-2 rounded-2xl">
+            <div className="w-11/12 p-4 items-center justify-around text-textB flex flex-col gap-4 bg-accentA border-accentB border-2 rounded-2xl">
                 <div>Admin Status: {x.admin ? "True" : "False"}</div>
-                <button className="border-accentB bg-accentD border-2 w-11/12" onClick={()=>changeAdmin(x)}>Make Admin</button>
+                <button className="border-accentB bg-accentD border-2 w-11/12" onClick={()=>changeAdmin(x)}>{x.admin ? "Remove Admin" : "Make Admin"}</button>
             </div>
-            <div className="bg-accentA border-accentB border-2 rounded-2xl p-2 mr-4 mt-4">
+            <div className="bg-accentA border-accentB border-2 rounded-2xl p-2 text-textB mr-4 mt-4">
                 <div>Addresses</div>
                 {x.addresses.map(x=>(
                   <ul className="ml-4" key={x.id}>
@@ -142,7 +142,7 @@ export const AdminUsers = ({user,admin,items,orders}) =>{
                   </ul>
                 ))}
             </div>
-            <div className="bg-accentA border-accentB border-2 rounded-2xl p-2 mr-4 mt-4 pb-4">
+            <div className="bg-accentA border-accentB border-2 text-textB rounded-2xl p-2 mr-4 mt-4 pb-4">
                 <div>Orders</div>
                 {x.orders.sort((a, b)=> a.id - b.id).map(x=>(
                   <ul className="mt-4 ml-4" key={x.id}>
@@ -155,7 +155,7 @@ export const AdminUsers = ({user,admin,items,orders}) =>{
                   </ul>
                 ))}
             </div>
-            <button className="mr-4 mt-2 border-accentB border-2" onClick={()=>deleteUser(x)}>Delete User</button>
+            <button className="mr-4 mt-2 bg-mainAlt text-textB border-accentB border-2" onClick={()=>deleteUser(x)}>Delete User</button>
             <EditUser info={x} newInfo={updateUser}/>
             <br/>
           </div>

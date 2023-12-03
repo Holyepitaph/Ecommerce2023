@@ -3,7 +3,7 @@ import { useState } from "react"
 
 
 //needs to adjust to remove admin auto status
-export const LoginText = ({login}) =>{
+export const LoginText = ({login, hiddenCheck}) =>{
     const [username, setUsername] = useState('admin')
     const [password,setPassword] = useState('secret')
 
@@ -16,9 +16,10 @@ export const LoginText = ({login}) =>{
           // setUsername('')
           // setPassword('')
     }
+
     return(
-      <div className="w-full px-4">
-      <form className="bg-main border-accentB border-4 pl-4 flex flex-col gap-4 py-4 rounded-2xl" onSubmit={sendIt}>
+      <div className="lg:pt-4 sm:w-1/2 w-full px-4 pt-4">
+      <form className="bg-main bg-opacity-10 border-accentB border-4 pl-4 flex flex-col gap-4 py-4 rounded-2xl" onSubmit={sendIt}>
         <div>
           <span className="mr-4">Username:</span>
           <input 
@@ -41,6 +42,9 @@ export const LoginText = ({login}) =>{
           Login
         </button>
       </form>
+      <button className="bg-mainAlt border-accentB border-4 w-full mt-4"
+      onClick={()=>hiddenCheck()}
+      >Create New User</button>
     </div>
     )
   }

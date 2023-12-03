@@ -14,15 +14,15 @@ export const UserCart = ({cart,removeFromCart}) =>{
 
 if(cart.items.length == 0){
     return(
-        <div className="mt-4 w-full px-4">
-            <div className="bg-main border-accentB border-4 px-4 py-4 rounded-2xl mt-4">
+        <div className="mt-4 w-screen px-4">
+            <div className="text-center bg-main border-accentB border-4 text-textA px-4 py-4 rounded-2xl mt-4">
                 Cart is Empty. Maybe Buy Some Stuff ?
             </div>
         </div>
     )
 }
     return(
-        <div className="sm:mt-20 w-full px-4 mt-16">
+        <div className="sm:mt-20 w-full px-4 mt-20 text-textA">
             <div className="sm:grid-cols-3 grid grid-cols-2 w-full gap-4 mt-4">
                 {cart.items.map(x=>(
                     <ul className="bg-main border-accentB border-4 flex flex-col gap-2 py-4 rounded-2xl pl-2" key={x.id}>
@@ -34,12 +34,12 @@ if(cart.items.length == 0){
                         <li>Stock: {x.stock}</li>
                         <li>Quantity: {x.cartItem.quantity}</li>
                         </Link>
-                        <button className="border-accentB border-2 mt-4 w-11/12 mr-2" onClick={()=>removeItem(x.id)}>Remove From Cart</button>
+                        <button className="border-accentB border-2 bg-mainAlt text-textB mt-4 w-11/12 mr-2" onClick={()=>removeItem(x.id)}>Remove From Cart</button>
                         <br/>
                     </ul>
                 ))}
             </div>    
-            <Link to="/user/Address"><button className="border-accentB border-4 my-4 w-full">Complete Purchase</button></Link>
+            <Link to="/user/Address"><button className="border-accentB border-4 my-4 w-full bg-mainAlt text-textB">Complete Purchase</button></Link>
         </div>
     )
 }

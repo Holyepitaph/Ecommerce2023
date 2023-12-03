@@ -3,25 +3,41 @@ import { useState } from "react"
 import { Link, useParams, useNavigate } from "react-router-dom"
 import reviewServices from "../../services/review"
 import cartItemServices from "../../services/cartItem"
-import { ImagesViewer } from "../image"
+import { ImagesViewer, ImagesViewerAlt } from "../image"
 import { Ratings } from "../ratings"
 
+
+///Some issue with tailwind Quantity and AddtoCart
 const ItemToCart = ({item, added, change, changeA})=>{
   const [quantity, setQuantity] = useState(0)
+  const [error, setError] = useState(null)
   const navigate = useNavigate()
 
     const addToCart = () =>{
-      added({
-        quantity: quantity,
-        itemId: item.id
-      })
-      navigate('/user/Cart')
+      if(quantity> item.stock){
+        setError("Requesting more than in Stock")
+        setTimeout(() => {
+          setError(null)
+        }, 5000)
+      }else if(quantity == 0){
+        setError("Quantity Must Be Higher than 0")
+        setTimeout(() => {
+          setError(null)
+        }, 5000)
+      }else{
+        added({
+          quantity: quantity,
+          itemId: item.id
+        })
+        navigate('/user/Cart')
+      }
     }
 
   return(
     <div className={change}>
         <div >
-          <span >Quantity: </span>
+          <div className="text-red-800">{error}</div>
+          <span className="text-textA text-black" >Quantity: </span>
           <input type="number"
           className="w-8 text-center"
            min={0} 
@@ -47,9 +63,9 @@ export const UserItems = ({items,addedToCart}) =>{
     }
 
     return(
-    <div className="w-full px-4 mt-20 mb-4">
+    <div className="lg:w-[calc(100vw-1rem)] w-full px-4 mt-20 mb-4 text-textA">
 
-    <div className="sm:grid-cols-3 grid grid-cols-2 gap-4 mt-4">
+    <div className="sm:grid-cols-3 lg:grid-cols-5 grid grid-cols-2 gap-4 mt-4">
     {items.map(x=>(
       <div className="bg-main border-accentB border-4 pl-4 flex flex-col gap-2 py-4 rounded-2xl" key={x.id}>
         <Link to={`/user/Item/${x.id}`} >
@@ -58,23 +74,16 @@ export const UserItems = ({items,addedToCart}) =>{
           <div>Description: {x.description}</div>
           <div>Stock: {x.stock}</div>
           <div>Price: {x.price}</div>
-          <div className="bg-accentA border-accentB border-2 rounded-2xl px-2 mt-4 mr-2 py-2">
+          <div className="text-textB bg-accentA border-accentB border-2 rounded-2xl px-2 mt-4 mr-2 py-2">
               <div>Categories:</div>
               <ul className="ml-2">
               {x.categories.map(x=><li key={x.id}>{x.categoryName}</li>)}
               </ul>
           </div>
-          <Ratings change={"bg-accentA border-accentB border-2 rounded-2xl px-2 mt-4 mr-2 py-2"} info={x.reviews}/>
-          <div className="bg-accentA border-accentB border-2 rounded-2xl px-2 mt-4 mr-2 py-2">
-              <div>Reviews:</div>
-              <ul className="ml-2"> 
-              {x.reviews.map(x=><li key={x.id}>{x.review}</li>)}
-
-              </ul>
-          </div>
+          <Ratings change={"text-textB bg-accentA border-accentB border-2 rounded-2xl px-2 mt-4 mr-2 py-2"} info={x.reviews}/>
         </Link>
           <ItemToCart change={"flex flex-col gap-3 mt-4 pr-2"} 
-          changeA={"w-11/12 text-sm bg-mainAlt border-accentB border-2"} 
+          changeA={" w-11/12 text-sm bg-mainAlt border-accentB text-textB border-2"} 
           item={x} added={addToCart}/>
         <br/>
         <br/>
@@ -108,7 +117,7 @@ export const UserItems = ({items,addedToCart}) =>{
            <div className="text-2xl">Create Review: </div>
             <div className="sm:gap-4 flex flex-col">
               <span className="mr-4">Review:</span>
-              <textarea className="sm:w-full w-64" rows={4} cols={50} value={review} onChange={({target})=>setReview(target.value)}/>
+              <textarea className="sm:w-full w-64 bg-main border-accentB border-2" rows={4} cols={50} value={review} onChange={({target})=>setReview(target.value)}/>
             </div>
             <div className="sm:text-center">
               <span className="mr-2">Rating: </span> 
@@ -118,7 +127,7 @@ export const UserItems = ({items,addedToCart}) =>{
               <input type="radio" className="mx-2" value={rating} onClick={()=>setRating(4)} name="rating"/> 4
               <input type="radio" className="mx-2" value={rating} onClick={()=>setRating(5)} name="rating"/> 5
             </div>
-            <button className="bg-mainAlt border-accentB border-2" type="submit">
+            <button className="bg-mainAlt border-accentB text-textB border-2" type="submit">
               Send
             </button>
           </form>
@@ -151,12 +160,12 @@ export const UserSingleItem = ({items,addedToCart, reloadItem}) =>{
   const reducedFirst = single[0].reviews.map(x=>x.rating)
   const reduced = reducedFirst.reduce((x,i)=>x+i, 0)
   return(
-    <div className="w-full mt-20 px-4  mb-6">
+    <div className="sm:w-[calc(100vw-1rem)] w-full mt-20 px-4  mb-6 text-textA">
       <div className="w-full grid grid-cols-2 gap-4">
         <div className="h-full bg-main border-accentB border-4 rounded-2xl flex flex-col justify-around items-center gap-4 py-4">
-           <ImagesViewer change={"w-11/12 rounded-2xl "} info={single[0].image}/>
+           <ImagesViewerAlt change={"w-11/12 rounded-2xl "} info={single[0].image}/>
            <ItemToCart change={"bg-accentA border-accentB border-2 rounded-2xl w-11/12 p-4 flex flex-col gap-4"}
-            changeA={"w-11/12 text-sm bg-accentD border-accentB border-2"}
+            changeA={"w-full text-sm bg-accentD border-accentB border-2 text-textB"}
             item={single[0]} added={addToCart}/>
         </div>
         <div className="w-full bg-main border-accentB border-4 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
@@ -176,7 +185,7 @@ export const UserSingleItem = ({items,addedToCart, reloadItem}) =>{
                   </ul>
             </div>
         </div>
-            <NewReview change={"bg-main border-accentB border-4 col-span-2 rounded-2xl p-4"}
+            <NewReview change={"bg-main border-accentB border-4 col-span-2 rounded-2xl p-3"}
              newReviewInfo={addReviewMiddleWare}/>
       </div>
     </div>

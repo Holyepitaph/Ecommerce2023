@@ -8,7 +8,7 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: #d7c0a1;
+  color: #ffffff;
   background-color: #faebd7;
 
   font-synthesis: none;
@@ -19,7 +19,6 @@
 
 a {
   font-weight: 500;
-  color: #b69870;
   text-decoration: inherit;
 }
 
@@ -43,7 +42,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #044b4b;
+  background-color: #ffffff;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -51,9 +50,16 @@ button {
 html{
   font-size: 100%;
 }
+
+input {
+  background-color: #fdf6e4;
+  border: 2px solid #5C1A1B;
+  color: #000000
+}
+
 @media (prefers-color-scheme: light) {
   :root {
-    color: #97e8f7;
+    color: #ffffff;
     background-color: #ffffff;
   }
   button {

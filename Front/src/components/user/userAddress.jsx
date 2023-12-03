@@ -36,13 +36,13 @@ const NewAddress = ({ newAddressInfo}) =>{
       }
     
       return(
-        <div className="bg-main border-accentB border-4 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
+        <div className="bg-main text-textA border-accentB border-4 pl-4 flex flex-col gap-2 py-4 rounded-2xl">
            <form className="flex flex-col gap-3" onSubmit={change}>
            <div>New Address: </div>
            <label>
               <span className="mr-4">Address Type:</span>  
               <select          
-              className="sm:w-[12.25rem] w-[8.7rem]"
+              className="sm:w-[12.25rem] w-[8.7rem] bg-main border-accentB border-2"
               value={addressType}
               onChange={({ target }) => setAddressType(target.value)}>
                 <option value=""/>
@@ -95,7 +95,7 @@ const NewAddress = ({ newAddressInfo}) =>{
                 onChange={({target})=>setZipcode(target.value)}
               />
             </div>
-            <button className="bg-mainAlt border-accentB border-2 w-11/12 ml-1 mt-3" type="submit">
+            <button className="text-textB bg-mainAlt border-accentB border-2 w-11/12 ml-1 mt-3" type="submit">
               Send
             </button>
           </form>
@@ -103,6 +103,9 @@ const NewAddress = ({ newAddressInfo}) =>{
       )
     }
 
+
+
+    ///Fix new Address on Payment for Users
 export const UserAddress = ({address,cart,update, newAddress}) => {
     const navigate = useNavigate()
 
@@ -141,8 +144,8 @@ export const UserAddress = ({address,cart,update, newAddress}) => {
         }
         if(address.length == 0){
           return(
-            <div className="sm:grid-cols-2 w-full px-4 mt-20 grid grid-cols-1 gap-4">
-              <div className="bg-main border-accentB border-4 px-4 flex flex-col gap-2 py-4 rounded-2xl">
+            <div className=" sm:grid-cols-2 w-full px-4 mt-20 grid grid-cols-1 gap-4">
+              <div className="bg-main border-accentB border-4 px-4 flex flex-col gap-2 py-4 rounded-2xl  text-textA">
                 <div>Please Create an Address</div>
               </div>
               <NewAddress newAddressInfo={newAddressInfo}/>
@@ -150,13 +153,13 @@ export const UserAddress = ({address,cart,update, newAddress}) => {
           )
         } else{
           return(
-            <div className="sm:grid-cols-2 w-full px-4 mt-20 grid grid-cols-1 gap-4">
-              <div className="bg-main border-accentB border-4 px-4 flex flex-col gap-2 py-4 rounded-2xl">
+            <div className="sm:grid-cols-2  w-full px-4 mt-20 grid grid-cols-1 gap-4">
+              <div className="bg-main border-accentB border-4 px-4 flex flex-col gap-2 py-4 rounded-2xl  text-textA">
                   <div>Select Address: </div>
                   <div className="w-full grid grid-cols-2 gap-4">
                   {address.map(x=>(
-                      <ul key={x.id}>
-                          <button onClick={()=>createOrder(x.id)}>
+                      <ul className="border-accentB border-2 rounded-xl" key={x.id}>
+                          <button className="bg-mainAlt text-textB" onClick={()=>createOrder(x.id)}>
                           <li>Address Type: {x.addressType}</li>
                           <li>Street: {x.street}</li>
                           <li>City: {x.city}</li>
@@ -168,7 +171,7 @@ export const UserAddress = ({address,cart,update, newAddress}) => {
                   ))}
                   </div>
               </div>
-                
+              <NewAddress newAddressInfo={newAddressInfo}/>
             </div>
         )
         }

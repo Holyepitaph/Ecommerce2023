@@ -1,24 +1,18 @@
 const Sequelize = require('sequelize')
-const { DB, USER, PASSWORD, HOST } = require('./config')
+const { DB, PASSWORD, HOST, LOGIN } = require('./config')
 const { Umzug, SequelizeStorage } = require('umzug')
 
-const sequelize = new Sequelize(DB, USER,
+const sequelize = new Sequelize(DB, LOGIN,
     PASSWORD, {
         host: HOST,
         dialect: "mysql",
-        operationsAliases: false,
-        pool: {
-        max: 5,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
-        }
+        operationsAliases: false
     })
     
     const connectToDatabase = async () => {
       try {
         await sequelize.authenticate()
-        await runMigrations()
+        // await runMigrations()
         console.log('connected to the database')
       } catch (err) {
         console.log('failed to connect to the database')
